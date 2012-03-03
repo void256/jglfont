@@ -2,9 +2,11 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <artifactId>jglfont-main</artifactId>
-    <groupId>de.lessvoid.jglfont</groupId>
+    <groupId>org.jglfont</groupId>
     <version>1.0-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
   <artifactId>jglfont-core</artifactId>
+  <name>jglfont - Core</name>
+  <description>Core module for jglfont.</description>
 </project>
