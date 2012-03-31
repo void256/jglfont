@@ -70,6 +70,11 @@
       <version>1.0</version>
     </dependency>
   </dependencies>
+  <scm>
+    <connection>scm:git:git://github.com/void256/jglfont.git</connection>
+    <developerConnection>scm:git:git@github.com:void256/jglfont.git</developerConnection>
+    <url>https://github.com/void256/jglfont</url>
+  </scm>
   <distributionManagement>
     <repository>
       <id>nifty-maven-repo.sourceforge.net</id>
