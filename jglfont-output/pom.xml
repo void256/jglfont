@@ -6,13 +6,10 @@
     <version>1.0-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
-  <artifactId>jglfont-format-angelcode</artifactId>
-  <name>jglfont - Format (Angelcode Bitmap Fonts)</name>
-  <dependencies>
-    <dependency>
-      <groupId>org.jglfont</groupId>
-      <artifactId>jglfont-core</artifactId>
-      <version>1.0-SNAPSHOT</version>
-    </dependency>
-  </dependencies>
+  <artifactId>jglfont-output</artifactId>
+  <name>jglfont - Output</name>
+  <packaging>pom</packaging>
+  <modules>
+    <module>jglfont-output-lwjgl</module>
+  </modules>
 </project>

@@ -4,13 +4,13 @@
   <artifactId>jglfont-main</artifactId>
   <packaging>pom</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>jglfont</name>
+  <name>jglfont - Maven main module</name>
   <description>Java GL Font Rendering</description>
   <modules>
     <module>jglfont-core</module>
-    <module>jglfont-format-angelcode</module>
-    <module>jglfont-renderer-lwjgl</module>
-    <module>jglfont-example</module>
+    <module>jglfont-output</module>
+    <module>jglfont-format</module>
+    <module>jglfont-examples</module>
   </modules>
   <developers>
     <developer>

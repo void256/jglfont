@@ -6,7 +6,10 @@
     <version>1.0-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
-  <artifactId>jglfont-core</artifactId>
-  <name>jglfont - Core</name>
-  <description>Core module for jglfont.</description>
+  <artifactId>jglfont-format</artifactId>
+  <name>jglfont - Format</name>
+  <packaging>pom</packaging>
+  <modules>
+    <module>jglfont-format-angelcode</module>
+  </modules>
 </project>
