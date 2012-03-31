@@ -1,4 +1,4 @@
-package org.jglfont;
+package org.jglfont.spi;
 
 public interface BitmapFontRenderer {
   public interface Texture {

@@ -11,6 +11,8 @@ import org.jglfont.angelcode.AngelCodeBitmapFontLoader;
 import org.jglfont.example.LwjglInitHelper.RenderLoopCallback;
 import org.jglfont.lwjgl.LwjglBitmapFontRenderer;
 
+import de.lessvoid.resourceloader.ResourceLoader;
+
 
 public class ExampleMain {
   public static void main(final String[] args) throws IOException {
@@ -19,8 +21,9 @@ public class ExampleMain {
       return;
     }
 
-    final BitmapFont bitmapFont = new BitmapFont(new LwjglBitmapFontRenderer(), new AngelCodeBitmapFontLoader());
-    bitmapFont.load(ExampleMain.class.getResourceAsStream("verdana-small-regular.fnt"));
+    final ResourceLoader resourceLoader = new ResourceLoader();
+    final BitmapFont bitmapFont = new BitmapFont(new LwjglBitmapFontRenderer(resourceLoader), new AngelCodeBitmapFontLoader());
+    bitmapFont.load(resourceLoader.getResourceAsStream("verdana-small-regular.fnt"));
     bitmapFont.renderText(100, 100, "Hello World");
 
     init.renderLoop(new RenderLoopCallback() {

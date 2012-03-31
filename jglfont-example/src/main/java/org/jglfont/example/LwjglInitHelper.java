@@ -23,7 +23,7 @@ public class LwjglInitHelper {
   }
 
   public boolean initSubSystems(final String title, final int width, final int height) {
-    LoggerShortFormat.intialize();
+    LoggerShortFormat.initialize();
 
     if (!initGraphics(title, width, height)) {
       return false;

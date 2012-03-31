@@ -5,6 +5,9 @@ import java.io.InputStream;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.jglfont.spi.BitmapFontLoader;
+import org.jglfont.spi.BitmapFontRenderer;
+
 /**
  * The core BitmapFont class represents a bitmap font :) that can render text.
  * To create a BitmapFont instance you need a BitmapFontRenderer implementation.

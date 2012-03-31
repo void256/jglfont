@@ -4,6 +4,7 @@ import static org.easymock.classextension.EasyMock.createMock;
 import static org.easymock.classextension.EasyMock.replay;
 import static org.easymock.classextension.EasyMock.verify;
 
+import org.jglfont.spi.BitmapFontRenderer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

@@ -20,7 +20,7 @@ public class LoggerShortFormat extends java.util.logging.Formatter {
        record.getMessage() + "\n";
   }
   
-  public static void intialize() {
+  public static void initialize() {
     Logger root = Logger.getLogger("");
     Handler[] handlers = root.getHandlers();  // returns 1
 

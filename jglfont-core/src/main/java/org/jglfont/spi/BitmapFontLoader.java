@@ -1,7 +1,9 @@
-package org.jglfont;
+package org.jglfont.spi;
 
 import java.io.IOException;
 import java.io.InputStream;
+
+import org.jglfont.BitmapFontData;
 
 
 /**

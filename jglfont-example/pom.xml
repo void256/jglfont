@@ -33,7 +33,12 @@
     </dependency>
     <dependency>
       <groupId>org.jglfont</groupId>
-      <artifactId>jglfont-lwjgl</artifactId>
+      <artifactId>jglfont-format-angelcode</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jglfont</groupId>
+      <artifactId>jglfont-renderer-lwjgl</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
   </dependencies>

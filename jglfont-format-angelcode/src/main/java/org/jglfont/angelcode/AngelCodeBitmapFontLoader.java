@@ -8,8 +8,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.jglfont.BitmapFontData;
-import org.jglfont.BitmapFontLoader;
 import org.jglfont.angelcode.line.LineProcessors;
+import org.jglfont.spi.BitmapFontLoader;
 
 
 /**

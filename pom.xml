@@ -8,7 +8,8 @@
   <description>Java GL Font Rendering</description>
   <modules>
     <module>jglfont-core</module>
-    <module>jglfont-lwjgl</module>
+    <module>jglfont-format-angelcode</module>
+    <module>jglfont-renderer-lwjgl</module>
     <module>jglfont-example</module>
   </modules>
   <developers>
@@ -62,6 +63,11 @@
       <artifactId>easymockclassextension</artifactId>
       <version>2.4</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>de.lessvoid</groupId>
+      <artifactId>resourceloader</artifactId>
+      <version>1.0</version>
     </dependency>
   </dependencies>
   <distributionManagement>
