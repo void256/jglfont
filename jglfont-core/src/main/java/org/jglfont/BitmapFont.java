@@ -10,7 +10,9 @@ import org.jglfont.spi.BitmapFontRenderer;
 
 /**
  * The core BitmapFont class represents a bitmap font :) that can render text.
- * To create a BitmapFont instance you need a BitmapFontRenderer implementation.
+ * To create a BitmapFont instance you need a BitmapFontRenderer and a BitmapFontLoader or
+ * the plan BitmapFontData.
+ *
  * @author void
  */
 public class BitmapFont {
