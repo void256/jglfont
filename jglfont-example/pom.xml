@@ -8,69 +8,11 @@
     <version>1.0-SNAPSHOT</version>
   </parent>
   <artifactId>jglfont-example</artifactId>
+  <packaging>pom</packaging>
   <name>jglfont - Example Code</name>
-  <description>Example code for jglfont.</description>
+  <description>Example code for jglfont</description>
   <url>http://maven.apache.org</url>
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.lwjgl.lwjgl</groupId>
-      <artifactId>lwjgl_util</artifactId>
-      <version>2.8.2</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jglfont</groupId>
-      <artifactId>jglfont-core</artifactId>
-      <version>1.0-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jglfont</groupId>
-      <artifactId>jglfont-format-angelcode</artifactId>
-      <version>1.0-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jglfont</groupId>
-      <artifactId>jglfont-renderer-lwjgl</artifactId>
-      <version>1.0-SNAPSHOT</version>
-    </dependency>
-  </dependencies>
- <build>
-    <plugins>
-      <plugin>
-        <groupId>com.googlecode.mavennatives</groupId>
-        <artifactId>maven-nativedependencies-plugin</artifactId>
-        <version>0.0.5</version>
-        <executions>
-          <!-- 
-            If you use this pom.xml with eclipse m2e plugin you'll need to install the
-            maven natives eclipse plugin from http://code.google.com/p/mavennatives/
-            to make the error message go away. It's as simple as installing it using
-            the following update site: http://mavennatives.googlecode.com/svn/eclipse-update/.
-
-            This plugin detects if you have the maven plugin configured, and if you do
-            it executes the unpacking of natives, and configures the Native Library Location.
-
-            This will allow you to run the examples from within eclipse without any more
-            setup of LWJGL required! Just execute the individual examples like any other
-            Java application from eclipse. Done! :) 
-           -->
-          <execution>
-            <id>unpacknatives</id>
-            <phase>generate-resources</phase>
-            <goals>
-              <goal>copy</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
+  <modules>
+    <module>jglfont-example-lwjgl</module>
+  </modules>
 </project>

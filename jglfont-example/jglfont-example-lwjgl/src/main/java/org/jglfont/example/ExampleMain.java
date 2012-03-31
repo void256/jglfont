@@ -21,11 +21,11 @@ public class ExampleMain {
       return;
     }
 
-    final ResourceLoader resourceLoader = new ResourceLoader();
-    final BitmapFont bitmapFont = new BitmapFont(new LwjglBitmapFontRenderer(resourceLoader), new AngelCodeBitmapFontLoader());
+    ResourceLoader resourceLoader = new ResourceLoader();
+    BitmapFont bitmapFont = new BitmapFont(new LwjglBitmapFontRenderer(resourceLoader), new AngelCodeBitmapFontLoader());
     bitmapFont.load(resourceLoader.getResourceAsStream("verdana-small-regular.fnt"));
     bitmapFont.renderText(100, 100, "Hello World");
-
+/*
     init.renderLoop(new RenderLoopCallback() {
       @Override
       public void process() {
@@ -35,7 +35,7 @@ public class ExampleMain {
         bitmapFont.renderText(100, 100, "Hello World");
       }
     });
-
+*/
     init.destroy();
   }
 }
