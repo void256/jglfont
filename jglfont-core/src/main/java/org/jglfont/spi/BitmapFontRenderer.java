@@ -1,9 +1,6 @@
 package org.jglfont.spi;
 
 public interface BitmapFontRenderer {
-  public interface Texture {
-  }
-
   /**
    * Register the bitmap with the given filename and the given key. This is a texture
    * file that contains a page of font glyphs.

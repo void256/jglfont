@@ -6,9 +6,10 @@
     <artifactId>jglfont-main</artifactId>
     <groupId>org.jglfont</groupId>
     <version>1.0-SNAPSHOT</version>
+    <relativePath>../../pom.xml</relativePath>
   </parent>
   <artifactId>jglfont-example-lwjgl</artifactId>
-  <packaging>pom</packaging>
+  <packaging>jar</packaging>
   <name>jglfont - Example (LWJGL)</name>
   <description>Example code for jglfont.</description>
   <url>http://maven.apache.org</url>
@@ -39,7 +40,7 @@
     </dependency>
     <dependency>
       <groupId>org.jglfont</groupId>
-      <artifactId>jglfont-renderer-lwjgl</artifactId>
+      <artifactId>jglfont-output-lwjgl</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
   </dependencies>

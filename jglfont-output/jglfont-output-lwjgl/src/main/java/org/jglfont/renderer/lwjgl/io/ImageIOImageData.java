@@ -242,7 +242,7 @@ public class ImageIOImageData implements ImageData {
   }
 
   private void processFlipped(BufferedImage image, boolean flipped, Graphics2D g) {
-    if (!flipped) {
+    if (flipped) {
       g.scale(1, -1);
       g.drawImage(image, 0, -height, null);
     } else {
