@@ -1,14 +1,11 @@
 package org.jglfont.impl;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import org.jglfont.BitmapFont;
 import org.jglfont.impl.format.BitmapFontCharacterInfo;
 import org.jglfont.impl.format.BitmapFontData;
-import org.jglfont.impl.format.BitmapFontLoader;
 import org.jglfont.spi.BitmapFontRenderer;
 
 /**
@@ -20,19 +17,7 @@ import org.jglfont.spi.BitmapFontRenderer;
  */
 public class BitmapFontImpl implements BitmapFont {
   private BitmapFontRenderer fontRenderer;
-  private BitmapFontLoader fontLoader;
   private BitmapFontData fontData;
-
-  /**
-   * Create a BitmapFont using the given BitmapFontRenderer and using the BitmapFontLoader
-   * to load bitmap fonts.
-   * @param fontRenderer font renderer
-   * @param fontLoader font loader
-   */
-  public BitmapFontImpl(final BitmapFontRenderer fontRenderer, final BitmapFontLoader fontLoader)  {
-    this.fontLoader = fontLoader;
-    this.fontRenderer = fontRenderer;
-  }
 
   /**
    * Create a BitmapFont using the given BitmapFontRenderer and the BitmapFontData.
@@ -42,19 +27,6 @@ public class BitmapFontImpl implements BitmapFont {
   public BitmapFontImpl(final BitmapFontRenderer fontRenderer, final BitmapFontData fontData)  {
     this.fontRenderer = fontRenderer;
     this.fontData = fontData;
-    initalize();
-  }
-
-  /**
-   * Will load a BitmapFont from the inputStream given. The current fontLoader instance will be used.
-   * @param fontStream the InputStream to read font data from
-   * @throws IOException
-   */
-  public void load(final InputStream fontStream) throws IOException {
-    if (fontLoader == null) {
-      throw new IllegalArgumentException("no fontLoader availabe");
-    }
-    this.fontData = fontLoader.load(fontStream);
     initalize();
   }
 

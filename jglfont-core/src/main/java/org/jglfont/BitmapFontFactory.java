@@ -16,13 +16,11 @@ public class BitmapFontFactory {
   public BitmapFontFactory(final BitmapFontRenderer fontRenderer) {
     this.fontRenderer = fontRenderer;
 
-    // we currently only support AngelCodeBitmapFont format - if this changes somewhere this would need to be modified
+    // we currently only support AngelCodeBitmapFont format - if this changes later this would need to be modified
     this.fontLoader = new AngelCodeBitmapFontLoader(new AngelCodeLineProcessors());
   }
 
   public BitmapFont loadFont(final InputStream stream) throws IOException {
-    BitmapFontImpl impl = new BitmapFontImpl(fontRenderer, fontLoader);
-    impl.load(stream);
-    return impl;
+    return new BitmapFontImpl(fontRenderer, fontLoader.load(stream));
   }
 }
