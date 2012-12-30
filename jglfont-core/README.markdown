@@ -1,0 +1,1 @@
+This is the actual dependency you want to use. This parses the font and calls methods on the org.jglfont.spi.BitmapFontRenderer implementation to register glyphs for later rendering and the actual rendering as well.

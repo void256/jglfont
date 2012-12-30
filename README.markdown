@@ -1,1 +1,1 @@
-Bitmap Fonts for Java OpenGL suitable to be used in a variety of Java OpenGL implementations.
+Bitmap Fonts for Java OpenGL suitable to be used in a variety of Java OpenGL implementations and with a variety of bitmap font formats. At the moment this supports the popular angelcode format only but it is easily extentable with other formats.
