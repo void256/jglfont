@@ -1,5 +1,6 @@
 package org.jglfont.renderer.lwjgl;
 
+import java.io.InputStream;
 import java.util.Hashtable;
 import java.util.Map;
 
@@ -18,8 +19,8 @@ public class LwjglDisplayListFontRenderer implements BitmapFontRenderer {
   private LwjglBitmapFontImage currentTexture;
 
   @Override
-  public void registerBitmap(final int bitmapId, final String filename) {
-    textures.put(bitmapId, new LwjglBitmapFontImage(LwjglDisplayListFontRenderer.class.getResourceAsStream("/" + filename), filename, false));
+  public void registerBitmap(final int bitmapId, final InputStream data, final String filename) {
+    textures.put(bitmapId, new LwjglBitmapFontImage(data, filename, false));
   }
 
   @Override

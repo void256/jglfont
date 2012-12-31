@@ -1,12 +1,15 @@
 package org.jglfont.impl;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import org.jglfont.BitmapFont;
+import org.jglfont.BitmapFontException;
 import org.jglfont.impl.format.BitmapFontCharacterInfo;
 import org.jglfont.impl.format.BitmapFontData;
 import org.jglfont.spi.BitmapFontRenderer;
+import org.jglfont.spi.ResourceLoader;
 
 /**
  * The core BitmapFont class represents a bitmap font :) that can render text.
@@ -16,16 +19,21 @@ import org.jglfont.spi.BitmapFontRenderer;
  * @author void
  */
 public class BitmapFontImpl implements BitmapFont {
-  private BitmapFontRenderer fontRenderer;
-  private BitmapFontData fontData;
+  private final BitmapFontRenderer fontRenderer;
+  private final ResourceLoader resourceLoader;
+  private final BitmapFontData fontData;
 
   /**
    * Create a BitmapFont using the given BitmapFontRenderer and the BitmapFontData.
    * @param fontRenderer font renderer
    * @param fontData font data
    */
-  public BitmapFontImpl(final BitmapFontRenderer fontRenderer, final BitmapFontData fontData)  {
+  public BitmapFontImpl(
+      final BitmapFontRenderer fontRenderer,
+      final ResourceLoader resourceLoader,
+      final BitmapFontData fontData)  {
     this.fontRenderer = fontRenderer;
+    this.resourceLoader = resourceLoader;
     this.fontData = fontData;
     initalize();
   }
@@ -114,9 +122,12 @@ public class BitmapFontImpl implements BitmapFont {
   }
 
   private void initalize() {
-    // load textures of font into array
     for (Entry<Integer, String> entry : this.fontData.getBitmaps().entrySet()) {
-      this.fontRenderer.registerBitmap(entry.getKey(), entry.getValue());
+      try {
+        this.fontRenderer.registerBitmap(entry.getKey(), resourceLoader.load(entry.getValue()), entry.getValue());
+      } catch (IOException e) {
+        throw new BitmapFontException(e);
+      }
     }
 
     initGlyphs();

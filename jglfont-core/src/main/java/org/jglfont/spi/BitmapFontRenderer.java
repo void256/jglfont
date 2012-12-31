@@ -1,5 +1,8 @@
 package org.jglfont.spi;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 /**
  * The interface necessary to let jglfont render a Bitmap. The actual resource loading of bitmap files needs to be done
  * in here. jglfont acts as a provider of the glyph data and BitmapFontRenderer implementations can use whatever way
@@ -9,14 +12,14 @@ package org.jglfont.spi;
  */
 public interface BitmapFontRenderer {
   /**
-   * Register the bitmap with the given filename and the given key. This is a texture that contains all the font glyph
+   * Register the bitmap with the given data under the given key. This is a texture that contains all the font glyph
    * data. It's not necessary that this call directly maps to a single actual texture since implementation can decide
    * to pack multiple textures into a single one.
    *
    * @param bitmapId the key
-   * @param filename the filename
+   * @param data the inputstream to the data
    */
-  void registerBitmap(int bitmapId, String filename);
+  void registerBitmap(int bitmapId, InputStream data, String filename) throws IOException;
 
   /**
    * Register a single Character Glyph for later rendering.
