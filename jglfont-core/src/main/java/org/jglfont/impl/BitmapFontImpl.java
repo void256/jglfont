@@ -69,7 +69,7 @@ public class BitmapFontImpl implements BitmapFont {
 
     int xPos = x;
     int yPos = y;
-    fontRenderer.begin();
+    fontRenderer.beforeRender();
     for (int i = 0; i < text.length(); i++) {
       char currentCharacter = text.charAt(i);
       char nextCharacter = getNextCharacter(text, i);
@@ -81,7 +81,7 @@ public class BitmapFontImpl implements BitmapFont {
         xPos += (float) getCharacterWidth(currentCharacter, nextCharacter, sizeX);
       }
     }
-    fontRenderer.end();
+    fontRenderer.afterRender();
   }
 
   @Override
@@ -92,6 +92,9 @@ public class BitmapFontImpl implements BitmapFont {
   @Override
   public int getCharacterWidth(final char currentCharacter, final char nextCharacter, final float size) {
     BitmapFontCharacterInfo currentCharacterInfo = fontData.getCharacters().get(currentCharacter);
+    if (currentCharacterInfo == null) {
+      return 0;
+    }
     return (int) ((currentCharacterInfo.getXadvance() + getKerning(currentCharacterInfo, nextCharacter)) * size);
   }
 
@@ -122,15 +125,16 @@ public class BitmapFontImpl implements BitmapFont {
   }
 
   private void initalize() {
-    for (Entry<Integer, String> entry : this.fontData.getBitmaps().entrySet()) {
+    for (Entry<Integer, String> entry : fontData.getBitmaps().entrySet()) {
       try {
-        this.fontRenderer.registerBitmap(entry.getKey(), resourceLoader.load(entry.getValue()), entry.getValue());
+        fontRenderer.registerBitmap(entry.getKey(), resourceLoader.load(entry.getValue()), entry.getValue());
       } catch (IOException e) {
         throw new BitmapFontException(e);
       }
     }
 
     initGlyphs();
+    fontRenderer.prepare();
   }
 
   private void initGlyphs() {

@@ -58,7 +58,11 @@ public class LwjglDisplayListFontRenderer implements BitmapFontRenderer {
   }
 
   @Override
-  public void begin() {
+  public void prepare() {
+  }
+
+  @Override
+  public void beforeRender() {
     currentTexture = null;
 
     GL11.glMatrixMode(GL11.GL_MODELVIEW);
@@ -91,7 +95,7 @@ public class LwjglDisplayListFontRenderer implements BitmapFontRenderer {
   }
 
   @Override
-  public void end() {
+  public void afterRender() {
     GL11.glPopMatrix();
   }
 }

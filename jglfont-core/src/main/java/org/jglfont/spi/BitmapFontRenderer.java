@@ -36,11 +36,17 @@ public interface BitmapFontRenderer {
   void registerGlyph(int bitmapId, char c, int xoff, int yoff, int w, int h, float u0, float v0, float u1, float v1);
 
   /**
+   * This is called after all registerBitmap() and registerGlyph() calls are done. This can be used to do more
+   * initialization prior to actual rendering calls.
+   */
+  void prepare();
+  
+  /**
    * This is called before several render() calls are happening. This method can be used to set up state for upcoming
    * text rendering calls or it might allow the implementation to cache state between render() states
    * (f.i. texture state).
    */
-  void begin();
+  void beforeRender();
   
   /**
    * Render a single character at the given position with the given color using the given bitmapId.
@@ -61,5 +67,5 @@ public interface BitmapFontRenderer {
   /**
    * This is called after several render() calls.
    */
-  void end();
+  void afterRender();
 }

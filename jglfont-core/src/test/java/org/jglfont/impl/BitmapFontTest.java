@@ -47,9 +47,9 @@ public class BitmapFontTest {
   @Test
   public void testRenderSingleCharacter() throws Exception {
     initializeFontRenderer();
-    fontRenderer.begin();
+    fontRenderer.beforeRender();
     fontRenderer.render(0, 100, 100, 'a', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
-    fontRenderer.end();
+    fontRenderer.afterRender();
     replay(fontRenderer);
 
     bitmapFont = new BitmapFontImpl(fontRenderer, resourceLoader, createBitmapFont());
@@ -59,9 +59,9 @@ public class BitmapFontTest {
   @Test
   public void testRenderSingleCharacterShortMethod() throws Exception {
     initializeFontRenderer();
-    fontRenderer.begin();
+    fontRenderer.beforeRender();
     fontRenderer.render(0, 100, 100, 'a', 1.f, 1.f, 1.f, 1.f, 1.f, 1.f);
-    fontRenderer.end();
+    fontRenderer.afterRender();
     replay(fontRenderer);
 
     bitmapFont = new BitmapFontImpl(fontRenderer, resourceLoader, createBitmapFont());
@@ -71,10 +71,10 @@ public class BitmapFontTest {
   @Test
   public void testRenderStringWithKerning() throws Exception {
     initializeFontRenderer();
-    fontRenderer.begin();
+    fontRenderer.beforeRender();
     fontRenderer.render(0, 100, 100, 'a', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
     fontRenderer.render(0, 117, 100, 'b', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
-    fontRenderer.end();
+    fontRenderer.afterRender();
     replay(fontRenderer);
 
     bitmapFont = new BitmapFontImpl(fontRenderer, resourceLoader, createBitmapFont());
@@ -84,10 +84,10 @@ public class BitmapFontTest {
   @Test
   public void testRenderStringWithoutKerning() throws Exception {
     initializeFontRenderer();
-    fontRenderer.begin();
+    fontRenderer.beforeRender();
     fontRenderer.render(0, 100, 100, 'b', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
     fontRenderer.render(0, 105, 100, 'a', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
-    fontRenderer.end();
+    fontRenderer.afterRender();
     replay(fontRenderer);
 
     bitmapFont = new BitmapFontImpl(fontRenderer, resourceLoader, createBitmapFont());
@@ -97,10 +97,10 @@ public class BitmapFontTest {
   @Test
   public void testRenderStringWithoutKerningAndMissingGlyph() throws Exception {
     initializeFontRenderer();
-    fontRenderer.begin();
+    fontRenderer.beforeRender();
     fontRenderer.render(0, 100, 100, 'b', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
     fontRenderer.render(0, 105, 100, 'a', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
-    fontRenderer.end();
+    fontRenderer.afterRender();
     replay(fontRenderer);
 
     bitmapFont = new BitmapFontImpl(fontRenderer, resourceLoader, createBitmapFont());
@@ -152,5 +152,6 @@ public class BitmapFontTest {
     fontRenderer.registerBitmap(0, inputStreamMock, "page1.png");
     fontRenderer.registerGlyph(0, 'b', 5, 0, 5, 10, 0.01953125f, 0.0f, 0.0390625f, 0.0390625f);
     fontRenderer.registerGlyph(0, 'a', 0, 0, 5, 10, 0.0f, 0.0f, 0.01953125f, 0.0390625f);
+    fontRenderer.prepare();
   }
 }
