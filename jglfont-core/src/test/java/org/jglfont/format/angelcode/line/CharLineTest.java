@@ -8,6 +8,7 @@ import org.jglfont.impl.format.BitmapFontCharacterInfo;
 import org.jglfont.impl.format.BitmapFontData;
 import org.jglfont.impl.format.angelcode.AngelCodeLineData;
 import org.jglfont.impl.format.angelcode.line.CharLine;
+import org.junit.Before;
 import org.junit.Test;
 
 
@@ -15,6 +16,11 @@ public class CharLineTest {
   private CharLine charLine = new CharLine();
   private AngelCodeLineData line = new AngelCodeLineData();
   private BitmapFontData font = new BitmapFontData();
+
+  @Before
+  public void before() {
+    this.font.setName("name");
+  }
 
   @Test
   public void testMissingMandatoryValue() {
@@ -41,7 +47,7 @@ public class CharLineTest {
     assertEquals(13, charInfo.getY());
     assertEquals(100, charInfo.getWidth());
     assertEquals(102, charInfo.getHeight());
-    assertEquals(1, charInfo.getPage());
+    assertEquals("name-1", charInfo.getPage());
     assertEquals(0, charInfo.getXoffset());
     assertEquals(0, charInfo.getYoffset());
     assertEquals(0, charInfo.getXadvance());
@@ -69,7 +75,7 @@ public class CharLineTest {
     assertEquals(13, charInfo.getY());
     assertEquals(100, charInfo.getWidth());
     assertEquals(102, charInfo.getHeight());
-    assertEquals(1, charInfo.getPage());
+    assertEquals("name-1", charInfo.getPage());
     assertEquals(42, charInfo.getXoffset());
     assertEquals(43, charInfo.getYoffset());
     assertEquals(44, charInfo.getXadvance());

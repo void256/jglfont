@@ -51,7 +51,7 @@ public class BitmapFontCharacterInfo {
   /**
    * page.
    */
-  private int page;
+  private String page;
 
   /**
    * kerning information.
@@ -173,14 +173,14 @@ public class BitmapFontCharacterInfo {
   /**
    * @return the page
    */
-  public int getPage() {
+  public String getPage() {
     return page;
   }
 
   /**
    * @param page the page to set
    */
-  public void setPage(final int page) {
+  public void setPage(final String page) {
     this.page = page;
   }
 

@@ -14,18 +14,18 @@ import org.lwjgl.opengl.GL11;
  * @author void
  */
 public class LwjglDisplayListFontRenderer implements BitmapFontRenderer {
-  private Map<Integer, LwjglBitmapFontImage> textures = new Hashtable<Integer, LwjglBitmapFontImage>();
+  private Map<String, LwjglBitmapFontImage> textures = new Hashtable<String, LwjglBitmapFontImage>();
   private Map<Character, Integer> displayListMap = new Hashtable<Character, Integer>();
   private LwjglBitmapFontImage currentTexture;
 
   @Override
-  public void registerBitmap(final int bitmapId, final InputStream data, final String filename) {
+  public void registerBitmap(final String bitmapId, final InputStream data, final String filename) {
     textures.put(bitmapId, new LwjglBitmapFontImage(data, filename, false));
   }
 
   @Override
   public void registerGlyph(
-      final int bitmapId,
+      final String bitmapId,
       final char character,
       final int xoffset,
       final int yoffset,
@@ -71,7 +71,7 @@ public class LwjglDisplayListFontRenderer implements BitmapFontRenderer {
 
   @Override
   public void render(
-      final int bitmapId,
+      final String bitmapId,
       final int x,
       final int y,
       final char c,

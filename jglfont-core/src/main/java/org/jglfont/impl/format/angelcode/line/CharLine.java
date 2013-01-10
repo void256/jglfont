@@ -30,7 +30,7 @@ public class CharLine implements AngelCodeLine {
     c.setXoffset(line.getInt("xoffset"));
     c.setYoffset(line.getInt("yoffset"));
     c.setXadvance(line.getInt("xadvance"));
-    c.setPage(line.getInt("page"));
+    c.setPage(font.getName() + "-" + line.getInt("page"));
 
     font.addCharacter(Character.valueOf((char) c.getId()), c);
     font.setLineHeight(Math.max(c.getHeight() + c.getYoffset(), font.getLineHeight()));

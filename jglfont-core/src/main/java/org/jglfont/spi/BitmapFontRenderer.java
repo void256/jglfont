@@ -8,6 +8,8 @@ import java.io.InputStream;
  * in here. jglfont acts as a provider of the glyph data and BitmapFontRenderer implementations can use whatever way
  * they seem fit to display this data.
  *
+ * A single BitmapFontRenderer can be used to render multiple fonts.
+ *
  * @author void
  */
 public interface BitmapFontRenderer {
@@ -16,10 +18,10 @@ public interface BitmapFontRenderer {
    * data. It's not necessary that this call directly maps to a single actual texture since implementation can decide
    * to pack multiple textures into a single one.
    *
-   * @param bitmapId the key
+   * @param key the key for this specific bitmap
    * @param data the inputstream to the data
    */
-  void registerBitmap(int bitmapId, InputStream data, String filename) throws IOException;
+  void registerBitmap(final String key, InputStream data, String filename) throws IOException;
 
   /**
    * Register a single Character Glyph for later rendering.
@@ -33,7 +35,7 @@ public interface BitmapFontRenderer {
    * @param u1 the x texture coordinates of the bottom right point
    * @param v1 the y texture coordinates of the bottom right point
    */
-  void registerGlyph(int bitmapId, char c, int xoff, int yoff, int w, int h, float u0, float v0, float u1, float v1);
+  void registerGlyph(String bitmapId, char c, int xoff, int yoff, int w, int h, float u0, float v0, float u1, float v1);
 
   /**
    * This is called after all registerBitmap() and registerGlyph() calls are done. This can be used to do more
@@ -62,7 +64,7 @@ public interface BitmapFontRenderer {
    * @param b blue
    * @param a alpha
    */
-  void render(int bitmapId, int x, int y, char c, float sx, float sy, float r, float g, float b, float a);
+  void render(String bitmapId, int x, int y, char c, float sx, float sy, float r, float g, float b, float a);
 
   /**
    * This is called after several render() calls.

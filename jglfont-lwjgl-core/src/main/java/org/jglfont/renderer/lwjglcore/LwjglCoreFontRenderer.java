@@ -34,7 +34,7 @@ import de.lessvoid.textureatlas.TextureAtlasGenerator.Result;
 public class LwjglCoreFontRenderer implements BitmapFontRenderer {
   private final SimpleImageLoader loader = new SimpleImageLoader();
   private final CoreTextureAtlasGenerator atlas;
-  private final Map<Integer, Result> textureInfos = new HashMap<Integer, Result>();
+  private final Map<String, Result> textureInfos = new HashMap<String, Result>();
   private final List<Float> vertexData = new ArrayList<Float>();
   private final Map<Character, Integer> characterIndices = new Hashtable<Character, Integer>();
   private CoreShader shader;
@@ -66,7 +66,7 @@ public class LwjglCoreFontRenderer implements BitmapFontRenderer {
   }
 
   @Override
-  public void registerBitmap(final int bitmapId, final InputStream data, final String filename) throws IOException {
+  public void registerBitmap(final String bitmapId, final InputStream data, final String filename) throws IOException {
     ImageData imageData = loader.load(filename, data, new SimpleImageLoaderConfig().forceAlpha());
     Result result = atlas.addImage(createTexture(imageData), filename, 0);
     if (result == null) {
@@ -77,7 +77,7 @@ public class LwjglCoreFontRenderer implements BitmapFontRenderer {
 
   @Override
   public void registerGlyph(
-      final int bitmapId,
+      final String bitmapId,
       final char c,
        int xoff,
        int yoff,
@@ -154,7 +154,7 @@ public class LwjglCoreFontRenderer implements BitmapFontRenderer {
 
   @Override
   public void render(
-      final int bitmapId,
+      final String bitmapId,
       final int x,
       final int y,
       final char c,

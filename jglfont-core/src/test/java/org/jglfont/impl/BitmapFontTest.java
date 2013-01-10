@@ -48,7 +48,7 @@ public class BitmapFontTest {
   public void testRenderSingleCharacter() throws Exception {
     initializeFontRenderer();
     fontRenderer.beforeRender();
-    fontRenderer.render(0, 100, 100, 'a', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
+    fontRenderer.render("name-0", 100, 100, 'a', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
     fontRenderer.afterRender();
     replay(fontRenderer);
 
@@ -60,7 +60,7 @@ public class BitmapFontTest {
   public void testRenderSingleCharacterShortMethod() throws Exception {
     initializeFontRenderer();
     fontRenderer.beforeRender();
-    fontRenderer.render(0, 100, 100, 'a', 1.f, 1.f, 1.f, 1.f, 1.f, 1.f);
+    fontRenderer.render("name-0", 100, 100, 'a', 1.f, 1.f, 1.f, 1.f, 1.f, 1.f);
     fontRenderer.afterRender();
     replay(fontRenderer);
 
@@ -72,8 +72,8 @@ public class BitmapFontTest {
   public void testRenderStringWithKerning() throws Exception {
     initializeFontRenderer();
     fontRenderer.beforeRender();
-    fontRenderer.render(0, 100, 100, 'a', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
-    fontRenderer.render(0, 117, 100, 'b', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
+    fontRenderer.render("name-0", 100, 100, 'a', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
+    fontRenderer.render("name-0", 117, 100, 'b', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
     fontRenderer.afterRender();
     replay(fontRenderer);
 
@@ -85,8 +85,8 @@ public class BitmapFontTest {
   public void testRenderStringWithoutKerning() throws Exception {
     initializeFontRenderer();
     fontRenderer.beforeRender();
-    fontRenderer.render(0, 100, 100, 'b', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
-    fontRenderer.render(0, 105, 100, 'a', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
+    fontRenderer.render("name-0", 100, 100, 'b', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
+    fontRenderer.render("name-0", 105, 100, 'a', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
     fontRenderer.afterRender();
     replay(fontRenderer);
 
@@ -98,8 +98,8 @@ public class BitmapFontTest {
   public void testRenderStringWithoutKerningAndMissingGlyph() throws Exception {
     initializeFontRenderer();
     fontRenderer.beforeRender();
-    fontRenderer.render(0, 100, 100, 'b', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
-    fontRenderer.render(0, 105, 100, 'a', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
+    fontRenderer.render("name-0", 100, 100, 'b', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
+    fontRenderer.render("name-0", 105, 100, 'a', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
     fontRenderer.afterRender();
     replay(fontRenderer);
 
@@ -116,6 +116,7 @@ public class BitmapFontTest {
 
   private BitmapFontData createBitmapFont() {
     BitmapFontData font = new BitmapFontData();
+    font.setName("name");
     font.setBitmapHeight(256);
     font.setBitmapWidth(256);
     font.setLineHeight(25);
@@ -123,7 +124,7 @@ public class BitmapFontTest {
     
     BitmapFontCharacterInfo charA = new BitmapFontCharacterInfo();
     charA.setId(1);
-    charA.setPage(0);
+    charA.setPage("name-0");
     charA.setWidth(5);
     charA.setHeight(10);
     charA.setX(0);
@@ -136,7 +137,7 @@ public class BitmapFontTest {
     
     BitmapFontCharacterInfo charB = new BitmapFontCharacterInfo();
     charB.setId(2);
-    charB.setPage(0);
+    charB.setPage("name-0");
     charB.setWidth(5);
     charB.setHeight(10);
     charB.setX(5);
@@ -149,9 +150,9 @@ public class BitmapFontTest {
   }
 
   private void initializeFontRenderer() throws IOException {
-    fontRenderer.registerBitmap(0, inputStreamMock, "page1.png");
-    fontRenderer.registerGlyph(0, 'b', 5, 0, 5, 10, 0.01953125f, 0.0f, 0.0390625f, 0.0390625f);
-    fontRenderer.registerGlyph(0, 'a', 0, 0, 5, 10, 0.0f, 0.0f, 0.01953125f, 0.0390625f);
+    fontRenderer.registerBitmap("name-0", inputStreamMock, "page1.png");
+    fontRenderer.registerGlyph("name-0", 'b', 5, 0, 5, 10, 0.01953125f, 0.0f, 0.0390625f, 0.0390625f);
+    fontRenderer.registerGlyph("name-0", 'a', 0, 0, 5, 10, 0.0f, 0.0f, 0.01953125f, 0.0390625f);
     fontRenderer.prepare();
   }
 }

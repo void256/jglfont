@@ -76,8 +76,7 @@ public class BitmapFontImpl implements BitmapFont {
 
       BitmapFontCharacterInfo characterInfo = fontData.getCharacters().get(currentCharacter);
       if (characterInfo != null) {
-        int characterTexturePage = characterInfo.getPage();
-        fontRenderer.render(characterTexturePage, xPos, yPos, currentCharacter, sizeX, sizeY, r, g, b, a);
+        fontRenderer.render(characterInfo.getPage(), xPos, yPos, currentCharacter, sizeX, sizeY, r, g, b, a);
         xPos += (float) getCharacterWidth(currentCharacter, nextCharacter, sizeX);
       }
     }
@@ -127,7 +126,7 @@ public class BitmapFontImpl implements BitmapFont {
   private void initalize() {
     for (Entry<Integer, String> entry : fontData.getBitmaps().entrySet()) {
       try {
-        fontRenderer.registerBitmap(entry.getKey(), resourceLoader.load(entry.getValue()), entry.getValue());
+        fontRenderer.registerBitmap(bitmapKey(entry.getKey()), resourceLoader.load(entry.getValue()), entry.getValue());
       } catch (IOException e) {
         throw new BitmapFontException(e);
       }
@@ -171,5 +170,9 @@ public class BitmapFontImpl implements BitmapFont {
       return kern.intValue();
     }
     return 0;
+  }
+
+  private String bitmapKey(final int key) {
+    return fontData.getName() + "-" + key;
   }
 }
