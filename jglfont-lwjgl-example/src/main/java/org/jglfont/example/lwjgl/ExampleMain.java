@@ -34,7 +34,7 @@ public class ExampleMain {
         bitmapFont.renderText(100, 100, "Hello World!");
         bitmapFont.renderText(100, 100, "Hello World!", (float)scale, (float)scale, 1.f, 0.f, 0.f, 0.4f);
 
-        bitmapFont.renderText(100, 200, "String width: " + bitmapFont.getStringWidthInternal("Hello World!", (float)scale));
+        bitmapFont.renderText(100, 200, "String width: " + bitmapFont.getStringWidth("Hello World!", (float)scale));
         bitmapFont.renderText(100, 200 + bitmapFont.getHeight(), "String height: " + bitmapFont.getHeight());
 
         long newTime = System.currentTimeMillis();

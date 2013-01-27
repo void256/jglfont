@@ -50,12 +50,12 @@ public interface BitmapFont {
    * @param text the text
    * @return the width
    */
-  int getStringWidthInternal(String text);
+  int getStringWidth(String text);
 
   /**
    * The same as the getStringWidthInternal(String) method that takes the given size into account.
    */
-  int getStringWidthInternal(String text, float size);
+  int getStringWidth(String text, float size);
 
   /**
    * The height of the given font (the lineHeight property of the font data)

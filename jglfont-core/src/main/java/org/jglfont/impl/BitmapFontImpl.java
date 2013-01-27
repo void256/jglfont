@@ -98,12 +98,12 @@ public class BitmapFontImpl implements BitmapFont {
   }
 
   @Override
-  public int getStringWidthInternal(final String text) {
-    return getStringWidthInternal(text, 1.f);
+  public int getStringWidth(final String text) {
+    return getStringWidth(text, 1.f);
   }
 
   @Override
-  public int getStringWidthInternal(final String text, final float size) {
+  public int getStringWidth(final String text, final float size) {
     int length = 0;
 
     for (int i = 0; i < text.length(); i++) {
