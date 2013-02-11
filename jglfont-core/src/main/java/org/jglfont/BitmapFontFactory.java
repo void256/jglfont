@@ -32,7 +32,7 @@ public class BitmapFontFactory {
     this.fontLoader = new AngelCodeBitmapFontLoader(new AngelCodeLineProcessors());
   }
 
-  public BitmapFont loadFont(final InputStream stream) throws IOException {
-    return new BitmapFontImpl(fontRenderer, resourceLoader, fontLoader.load(stream));
+  public BitmapFont loadFont(final InputStream stream, final String filename) throws IOException {
+    return new BitmapFontImpl(fontRenderer, resourceLoader, fontLoader.load(stream), filename);
   }
 }

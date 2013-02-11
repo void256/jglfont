@@ -41,7 +41,7 @@ public class BitmapFontTest {
     initializeFontRenderer();
     replay(fontRenderer);
 
-    bitmapFont = new BitmapFontImpl(fontRenderer, resourceLoader, createBitmapFont());
+    bitmapFont = new BitmapFontImpl(fontRenderer, resourceLoader, createBitmapFont(), "test.fnt");
   }
 
   @Test
@@ -52,7 +52,7 @@ public class BitmapFontTest {
     fontRenderer.afterRender();
     replay(fontRenderer);
 
-    bitmapFont = new BitmapFontImpl(fontRenderer, resourceLoader, createBitmapFont());
+    bitmapFont = new BitmapFontImpl(fontRenderer, resourceLoader, createBitmapFont(), "test.fnt");
     bitmapFont.renderText(100, 100, "a", 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
   }
 
@@ -64,7 +64,7 @@ public class BitmapFontTest {
     fontRenderer.afterRender();
     replay(fontRenderer);
 
-    bitmapFont = new BitmapFontImpl(fontRenderer, resourceLoader, createBitmapFont());
+    bitmapFont = new BitmapFontImpl(fontRenderer, resourceLoader, createBitmapFont(), "test.fnt");
     bitmapFont.renderText(100, 100, "a");
   }
 
@@ -77,7 +77,7 @@ public class BitmapFontTest {
     fontRenderer.afterRender();
     replay(fontRenderer);
 
-    bitmapFont = new BitmapFontImpl(fontRenderer, resourceLoader, createBitmapFont());
+    bitmapFont = new BitmapFontImpl(fontRenderer, resourceLoader, createBitmapFont(), "test.fnt");
     bitmapFont.renderText(100, 100, "ab", 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
   }
 
@@ -90,7 +90,7 @@ public class BitmapFontTest {
     fontRenderer.afterRender();
     replay(fontRenderer);
 
-    bitmapFont = new BitmapFontImpl(fontRenderer, resourceLoader, createBitmapFont());
+    bitmapFont = new BitmapFontImpl(fontRenderer, resourceLoader, createBitmapFont(), "test.fnt");
     bitmapFont.renderText(100, 100, "ba", 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
   }
 
@@ -103,7 +103,7 @@ public class BitmapFontTest {
     fontRenderer.afterRender();
     replay(fontRenderer);
 
-    bitmapFont = new BitmapFontImpl(fontRenderer, resourceLoader, createBitmapFont());
+    bitmapFont = new BitmapFontImpl(fontRenderer, resourceLoader, createBitmapFont(), "test.fnt");
     bitmapFont.renderText(100, 100, "b@a", 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
   }
 

@@ -27,15 +27,18 @@ public class BitmapFontImpl implements BitmapFont {
    * Create a BitmapFont using the given BitmapFontRenderer and the BitmapFontData.
    * @param fontRenderer font renderer
    * @param fontData font data
+   * @param filename the original filename of the fnt (the path part is used to resolve any bitmap references inside
+   * the .fnt file!)
    */
   public BitmapFontImpl(
       final BitmapFontRenderer fontRenderer,
       final ResourceLoader resourceLoader,
-      final BitmapFontData fontData)  {
+      final BitmapFontData fontData,
+      final String filename)  {
     this.fontRenderer = fontRenderer;
     this.resourceLoader = resourceLoader;
     this.fontData = fontData;
-    initalize();
+    initalize(extractPath(filename));
   }
 
   /* (non-Javadoc)
@@ -123,10 +126,14 @@ public class BitmapFontImpl implements BitmapFont {
     return fontData.getLineHeight();
   }
 
-  private void initalize() {
+  private void initalize(final String path) {
     for (Entry<Integer, String> entry : fontData.getBitmaps().entrySet()) {
       try {
-        fontRenderer.registerBitmap(bitmapKey(entry.getKey()), resourceLoader.load(entry.getValue()), entry.getValue());
+        String filename = path + entry.getValue();
+        fontRenderer.registerBitmap(
+            bitmapKey(entry.getKey()),
+            resourceLoader.load(filename),
+            filename);
       } catch (IOException e) {
         throw new BitmapFontException(e);
       }
@@ -134,6 +141,15 @@ public class BitmapFontImpl implements BitmapFont {
 
     initGlyphs();
     fontRenderer.prepare();
+  }
+
+  private String extractPath(final String filename) {
+    int idx = filename.lastIndexOf("/");
+    if (idx == -1) {
+      return "";
+    } else {
+      return filename.substring(0, idx) + "/";
+    }
   }
 
   private void initGlyphs() {
