@@ -22,7 +22,9 @@ public class ExampleMain {
     init.initialize("jglfont core example", 1024, 768);
 
     BitmapFontFactory factory = new BitmapFontFactory(new LwjglCoreFontRenderer(1024, 1024));
-    final BitmapFont bitmapFont = factory.loadFont(ExampleMain.class.getResourceAsStream("/verdana-small-regular.fnt"));
+    final BitmapFont bitmapFont = factory.loadFont(
+        ExampleMain.class.getResourceAsStream("/verdana-small-regular.fnt"),
+        "verdana-small-regular.fnt");
 
     init.renderLoop(new RenderLoopCallback() {
       @Override

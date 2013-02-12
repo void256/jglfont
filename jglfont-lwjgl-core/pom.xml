@@ -2,22 +2,22 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.jglfont</groupId>
   <artifactId>jglfont-lwjgl-core</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.1-SNAPSHOT</version>
   <dependencies>
   	<dependency>
   		<groupId>org.jglfont</groupId>
   		<artifactId>jglfont-core</artifactId>
-  		<version>1.0-SNAPSHOT</version>
+  		<version>1.1-SNAPSHOT</version>
   	</dependency>
   	<dependency>
-  		<groupId>de.lessvoid</groupId>
-  		<artifactId>lwjgl-coregl-utils</artifactId>
-  		<version>1.0-SNAPSHOT</version>
+  	  <groupId>de.lessvoid</groupId>
+      <artifactId>lwjgl-coregl-utils</artifactId>
+      <version>1.0</version>
   	</dependency>
   	<dependency>
   		<groupId>de.lessvoid</groupId>
   		<artifactId>simpleimageloader</artifactId>
-  		<version>1.0-SNAPSHOT</version>
+  		<version>1.0</version>
   	</dependency>
   </dependencies>
   <name>jglfont lwjgl core profile implementation</name>
