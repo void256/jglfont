@@ -4,7 +4,7 @@
   <parent>
     <artifactId>jglfont-main</artifactId>
     <groupId>org.jglfont</groupId>
-    <version>1.2-SNAPSHOT</version>
+    <version>1.2</version>
   </parent>
   <artifactId>jglfont-lwjgl</artifactId>
   <name>jglfont - Output (using LWJGL)</name>
@@ -33,7 +33,7 @@
     <dependency>
       <groupId>org.jglfont</groupId>
       <artifactId>jglfont-core</artifactId>
-      <version>1.2-SNAPSHOT</version>
+      <version>1.2</version>
     </dependency>
   </dependencies>
 </project>
