@@ -70,6 +70,11 @@ public class LwjglDisplayListFontRenderer implements BitmapFontRenderer {
   }
 
   @Override
+  public int preProcess(final String text, final int offset) {
+    return offset;
+  }
+
+  @Override
   public void render(
       final String bitmapId,
       final int x,

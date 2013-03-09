@@ -49,7 +49,21 @@ public interface BitmapFontRenderer {
    * (f.i. texture state).
    */
   void beforeRender();
-  
+
+  /**
+   * This allows any pre-processing of the next characters to happen. You're given the complete text and the
+   * current offset. You should then process the text beginning from the given offset. If you find something
+   * interesting you can do whatever you like with the characters. You can even skip characters that should be
+   * excluded from the rendering by return a new offset where the rendering should continue.
+   *
+   * Nifty-GUI uses this feature to handle the Nifty-GUI specific color encoding that starts with a \# sequence.
+   *
+   * @param text the complete text to render
+   * @param offset the offset where the next characters will get rendered
+   * @return the new offset
+   */
+  int preProcess(String text, int offset);
+
   /**
    * Render a single character at the given position with the given color using the given bitmapId.
    *

@@ -48,6 +48,7 @@ public class BitmapFontTest {
   public void testRenderSingleCharacter() throws Exception {
     initializeFontRenderer();
     fontRenderer.beforeRender();
+    expect(fontRenderer.preProcess("a", 0)).andReturn(0);
     fontRenderer.render("name-0", 100, 100, 'a', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
     fontRenderer.afterRender();
     replay(fontRenderer);
@@ -60,6 +61,7 @@ public class BitmapFontTest {
   public void testRenderSingleCharacterShortMethod() throws Exception {
     initializeFontRenderer();
     fontRenderer.beforeRender();
+    expect(fontRenderer.preProcess("a", 0)).andReturn(0);
     fontRenderer.render("name-0", 100, 100, 'a', 1.f, 1.f, 1.f, 1.f, 1.f, 1.f);
     fontRenderer.afterRender();
     replay(fontRenderer);
@@ -72,7 +74,9 @@ public class BitmapFontTest {
   public void testRenderStringWithKerning() throws Exception {
     initializeFontRenderer();
     fontRenderer.beforeRender();
+    expect(fontRenderer.preProcess("ab", 0)).andReturn(0);
     fontRenderer.render("name-0", 100, 100, 'a', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
+    expect(fontRenderer.preProcess("ab", 1)).andReturn(1);
     fontRenderer.render("name-0", 117, 100, 'b', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
     fontRenderer.afterRender();
     replay(fontRenderer);
@@ -85,7 +89,9 @@ public class BitmapFontTest {
   public void testRenderStringWithoutKerning() throws Exception {
     initializeFontRenderer();
     fontRenderer.beforeRender();
+    expect(fontRenderer.preProcess("ba", 0)).andReturn(0);
     fontRenderer.render("name-0", 100, 100, 'b', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
+    expect(fontRenderer.preProcess("ba", 1)).andReturn(1);
     fontRenderer.render("name-0", 105, 100, 'a', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
     fontRenderer.afterRender();
     replay(fontRenderer);
@@ -98,13 +104,31 @@ public class BitmapFontTest {
   public void testRenderStringWithoutKerningAndMissingGlyph() throws Exception {
     initializeFontRenderer();
     fontRenderer.beforeRender();
+    expect(fontRenderer.preProcess("b@a", 0)).andReturn(0);
     fontRenderer.render("name-0", 100, 100, 'b', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
+    expect(fontRenderer.preProcess("b@a", 1)).andReturn(1);
+    expect(fontRenderer.preProcess("b@a", 2)).andReturn(2);
     fontRenderer.render("name-0", 105, 100, 'a', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
     fontRenderer.afterRender();
     replay(fontRenderer);
 
     bitmapFont = new BitmapFontImpl(fontRenderer, resourceLoader, createBitmapFont(), "test.fnt");
     bitmapFont.renderText(100, 100, "b@a", 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
+  }
+
+  @Test
+  public void testRenderStringColorEncoded() throws Exception {
+    initializeFontRenderer();
+    fontRenderer.beforeRender();
+    expect(fontRenderer.preProcess("b\\#f00#a", 0)).andReturn(0);
+    fontRenderer.render("name-0", 100, 100, 'b', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
+    expect(fontRenderer.preProcess("b\\#f00#a", 1)).andReturn(7);
+    fontRenderer.render("name-0", 105, 100, 'a', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
+    fontRenderer.afterRender();
+    replay(fontRenderer);
+
+    bitmapFont = new BitmapFontImpl(fontRenderer, resourceLoader, createBitmapFont(), "test.fnt");
+    bitmapFont.renderText(100, 100, "b\\#f00#a", 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
   }
 
   @After
