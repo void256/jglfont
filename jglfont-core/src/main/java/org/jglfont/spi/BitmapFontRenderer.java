@@ -84,4 +84,15 @@ public interface BitmapFontRenderer {
    * This is called after several render() calls.
    */
   void afterRender();
+
+  /**
+   * This allows any pre-processing of the next characters to happen when the width of a text is to be calculated.
+   * This is mainly used to skip characters f.i. when color encoded characters are contained in the String that should
+   * not be used for string width calculations.
+   *
+   * @param text the complete text to render
+   * @param offset the offset where the next characters will get rendered
+   * @return the new offset
+   */
+  int preProcessForLength(String text, int offset);
 }

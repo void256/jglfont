@@ -103,4 +103,9 @@ public class LwjglDisplayListFontRenderer implements BitmapFontRenderer {
   public void afterRender() {
     GL11.glPopMatrix();
   }
+
+  @Override
+  public int preProcessForLength(final String text, final int offset) {
+    return offset;
+  }
 }

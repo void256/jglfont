@@ -114,6 +114,10 @@ public class BitmapFontImpl implements BitmapFont {
     int length = 0;
 
     for (int i = 0; i < text.length(); i++) {
+      i = fontRenderer.preProcessForLength(text, i);
+      if (i >= text.length()) {
+        break;
+      }
       char currentCharacter = text.charAt(i);
       char nextCharacter = getNextCharacter(text, i);
 
