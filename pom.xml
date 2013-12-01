@@ -6,6 +6,13 @@
   <version>1.4-SNAPSHOT</version>
   <name>jglfont - Maven main module</name>
   <description>Java GL Font Rendering</description>
+  <licenses>
+    <license>
+      <name>The BSD 2-Clause License</name>
+      <url>http://www.opensource.org/licenses/bsd-license.php</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
   <modules>
     <module>jglfont-core</module>
     <module>jglfont-lwjgl</module>
