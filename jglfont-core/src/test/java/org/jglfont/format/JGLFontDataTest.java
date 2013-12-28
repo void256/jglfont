@@ -4,13 +4,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import org.jglfont.impl.format.BitmapFontCharacterInfo;
-import org.jglfont.impl.format.BitmapFontData;
+import org.jglfont.impl.format.JGLBitmapFontData;
+import org.jglfont.impl.format.JGLFontGlyphInfo;
+import org.jglfont.impl.format.JGLAbstractFontData;
 import org.junit.Test;
 
 
-public class BitmapFontDataTest {
-  BitmapFontData font = new BitmapFontData();
+public class JGLFontDataTest {
+  JGLAbstractFontData font = new JGLBitmapFontData(null, null, null);
 
   @Test
   public void testNameDefault() {
@@ -58,14 +59,14 @@ public class BitmapFontDataTest {
 
   @Test
   public void testGetCharactersDefault() {
-    assertTrue(font.getCharacters().isEmpty());
+    assertTrue(font.getGlyphs().isEmpty());
   }
 
   @Test
   public void testAddCharacter() {
-    BitmapFontCharacterInfo info = new BitmapFontCharacterInfo();
-    font.addCharacter('A', info);
-    assertEquals(info, font.getCharacters().get('A'));
+    JGLFontGlyphInfo info = new JGLFontGlyphInfo();
+    font.addGlyph((int) 'A', info);
+    assertEquals(info, font.getGlyphs().get((int)'A'));
   }
 
   @Test

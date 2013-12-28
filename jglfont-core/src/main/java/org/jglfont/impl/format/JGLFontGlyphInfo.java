@@ -4,10 +4,10 @@ import java.util.Hashtable;
 import java.util.Map;
 
 /**
- * Informations for an individual character in a BitmapFontData.
+ * Informations for an individual character in a JGLAbstractFontData.
  * @author void
  */
-public class BitmapFontCharacterInfo {
+public class JGLFontGlyphInfo {
   /**
    * id.
    */
@@ -56,7 +56,7 @@ public class BitmapFontCharacterInfo {
   /**
    * kerning information.
    */
-  private Map<Character, Integer> kerning = new Hashtable<Character, Integer>();
+  private Map<Integer, Integer> kerning = new Hashtable<Integer, Integer>();
 
   /**
    * @return the id
@@ -187,14 +187,14 @@ public class BitmapFontCharacterInfo {
   /**
    * @return the kerning
    */
-  public Map<Character, Integer> getKerning() {
+  public Map<Integer, Integer> getKerning() {
     return kerning;
   }
 
   /**
    * @param kerning the kerning to set
    */
-  public void addKerning(final Character character, final Integer kerning) {
+  public void addKerning(final Integer character, final Integer kerning) {
     this.kerning.put(character, kerning);
   }
 }

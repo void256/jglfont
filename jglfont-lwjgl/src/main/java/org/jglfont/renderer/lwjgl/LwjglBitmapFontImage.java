@@ -56,6 +56,22 @@ public class LwjglBitmapFontImage {
     }
   }
 
+  public LwjglBitmapFontImage(ByteBuffer data, int width, int height, String filename, boolean filterParam) {
+    this.width = width;
+    this.height = height;
+    textureWidth = powerOfTwo(width);
+    textureHeight = powerOfTwo(height);
+    createTexture(data, textureWidth, textureHeight, getFilter(filterParam), GL11.GL_RGBA);
+  }
+
+  public int powerOfTwo(int value) {
+    int result = 2;
+    while (result < value) {
+      result *= 2;
+    }
+    return result;
+  }
+
   private int getFilter(final boolean filterParam) {
     if (filterParam) {
       return GL11.GL_LINEAR;

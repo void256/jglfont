@@ -7,31 +7,43 @@ import java.io.InputStreamReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jglfont.impl.format.BitmapFontData;
-import org.jglfont.impl.format.BitmapFontLoader;
+import org.jglfont.impl.format.JGLAbstractFontData;
+import org.jglfont.impl.format.JGLBitmapFontData;
+import org.jglfont.impl.format.JGLFontLoader;
+import org.jglfont.spi.JGLFontRenderer;
+import org.jglfont.spi.ResourceLoader;
 
 
 /**
  * A BitmapFontDataLoader implementation for AngelCode Font file.
  * @author void
  */
-public class AngelCodeBitmapFontLoader implements BitmapFontLoader {
-  private final static Logger log = Logger.getLogger(AngelCodeBitmapFontLoader.class.getName());
+public class AngelCodeJGLFontLoader implements JGLFontLoader {
+  private final static Logger log = Logger.getLogger(AngelCodeJGLFontLoader.class.getName());
   private final AngelCodeLineParser parser = new AngelCodeLineParser();
   private final AngelCodeLineData parsed = new AngelCodeLineData();
   private final AngelCodeLineProcessors lineProcessors;
 
-  public AngelCodeBitmapFontLoader(final AngelCodeLineProcessors lineProcessors) {
+  public AngelCodeJGLFontLoader(final AngelCodeLineProcessors lineProcessors) {
     this.lineProcessors = lineProcessors;
   }
 
-  public BitmapFontData load(final InputStream in) throws IOException {
-    BitmapFontData result = new BitmapFontData();
+  public JGLAbstractFontData load(
+          final JGLFontRenderer renderer,
+          final ResourceLoader resourceLoader,
+          final InputStream in,
+          final String filename,
+          final int size,
+          final int style,
+          String params
+  ) throws IOException {
+    JGLAbstractFontData result = new JGLBitmapFontData(renderer, resourceLoader, filename);
     load(in, result);
+    result.init();
     return result;
   }
 
-  private void load(final InputStream in, final BitmapFontData bitmapFont) throws IOException {
+  private void load(final InputStream in, final JGLAbstractFontData bitmapFont) throws IOException {
     if (in == null) {
       throw new IOException("InputStream is null");
     }
