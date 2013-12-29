@@ -11,6 +11,7 @@ import org.jglfont.impl.ClasspathResourceLoader;
 import org.jglfont.impl.format.JGLFontLoader;
 import org.jglfont.impl.format.angelcode.AngelCodeJGLFontLoader;
 import org.jglfont.impl.format.angelcode.AngelCodeLineProcessors;
+import org.jglfont.impl.format.awt.AwtJGLFontLoader;
 import org.jglfont.spi.JGLFontRenderer;
 import org.jglfont.spi.ResourceLoader;
 
@@ -27,6 +28,7 @@ public class JGLFontFactory {
 
   static {
     loaders.put("fnt", new AngelCodeJGLFontLoader(new AngelCodeLineProcessors()));
+    loaders.put("ttf", new AwtJGLFontLoader());
   }
 
   public JGLFontFactory(final JGLFontRenderer fontRenderer) {
@@ -46,7 +48,7 @@ public class JGLFontFactory {
     int dot = filenameWithHash.lastIndexOf('.');
     if (i > 0 && i > sep && i > dot) {
       hash = filenameWithHash.substring(i+1);
-      filename = filenameWithHash.substring(0, i-1);
+      filename = filenameWithHash.substring(0, i);
     }
     if (hash.isEmpty()) {
       return loadFont(stream, filename, 16);
@@ -113,6 +115,11 @@ public class JGLFontFactory {
       loader = loaders.get(defaultSuffix);
     }
 
-    return new JGLFontImpl(loader.load(fontRenderer, resourceLoader, stream, filename, size, style, params));
+    InputStream is = stream;
+    if (is == null) {
+      is = resourceLoader.load(filename);
+    }
+
+    return new JGLFontImpl(loader.load(fontRenderer, resourceLoader, is, filename, size, style, params));
   }
 }
