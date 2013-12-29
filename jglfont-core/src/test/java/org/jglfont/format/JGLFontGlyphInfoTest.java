@@ -2,12 +2,12 @@ package org.jglfont.format;
 
 import static org.junit.Assert.*;
 
-import org.jglfont.impl.format.BitmapFontCharacterInfo;
+import org.jglfont.impl.format.JGLFontGlyphInfo;
 import org.junit.Test;
 
 
-public class BitmapFontCharacterInfoTest {
-  private BitmapFontCharacterInfo charInfo = new BitmapFontCharacterInfo();
+public class JGLFontGlyphInfoTest {
+  private JGLFontGlyphInfo charInfo = new JGLFontGlyphInfo();
 
   @Test
   public void testDefaults() {
@@ -25,9 +25,9 @@ public class BitmapFontCharacterInfoTest {
 
   @Test
   public void testKerning() throws Exception {
-    charInfo.addKerning('A', 2);
+    charInfo.addKerning((int)'A', 2);
     assertEquals(1, charInfo.getKerning().size());
-    assertEquals(2, charInfo.getKerning().get('A'));
+    assertEquals(2, charInfo.getKerning().get((int) 'A'));
   }
 
   @Test

@@ -23,9 +23,9 @@ other formats.
 
 **Example**
     
-    BitmapFontFactory factory = new BitmapFontFactory(new LwjglDisplayListFontRenderer());
-    BitmapFont bitmapFont = factory.loadFont(ExampleMain.class.getResourceAsStream("/verdana-small-regular.fnt"));
-    bitmapFont.renderText(100, 100, "Hello World!");
+    JGLFontFactory factory = new JGLFontFactory(new LwjglDisplayListFontRenderer());
+    JGLFont jglFont = factory.loadFont(ExampleMain.class.getResourceAsStream("/verdana-small-regular.fnt"));
+    jglFont.renderText(100, 100, "Hello World!");
 	
 **License**
 

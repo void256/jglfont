@@ -1,7 +1,7 @@
 package org.jglfont.impl.format.angelcode.line;
 
-import org.jglfont.impl.format.BitmapFontCharacterInfo;
-import org.jglfont.impl.format.BitmapFontData;
+import org.jglfont.impl.format.JGLFontGlyphInfo;
+import org.jglfont.impl.format.JGLAbstractFontData;
 import org.jglfont.impl.format.angelcode.AngelCodeLine;
 import org.jglfont.impl.format.angelcode.AngelCodeLineData;
 
@@ -12,7 +12,7 @@ import org.jglfont.impl.format.angelcode.AngelCodeLineData;
 public class KerningLine implements AngelCodeLine {
 
   @Override
-  public boolean process(final AngelCodeLineData line, final BitmapFontData font) {
+  public boolean process(final AngelCodeLineData line, final JGLAbstractFontData font) {
     if (!line.hasValue("first") ||
         !line.hasValue("second") ||
         !line.hasValue("amount")) {
@@ -22,11 +22,11 @@ public class KerningLine implements AngelCodeLine {
     int second = line.getInt("second");
     int amount = line.getInt("amount");
 
-    BitmapFontCharacterInfo info = font.getCharacters().get(Character.valueOf((char)first));
+    JGLFontGlyphInfo info = font.getGlyphs().get(first);
     if (info == null) {
       return false;
     }
-    info.getKerning().put(Character.valueOf((char)second), amount);
+    info.getKerning().put(second, amount);
     return true;
   }
 }

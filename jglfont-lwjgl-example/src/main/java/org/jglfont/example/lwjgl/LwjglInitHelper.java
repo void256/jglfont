@@ -49,7 +49,7 @@ public class LwjglInitHelper {
       List < DisplayMode > matching = new ArrayList < DisplayMode >();
       for (int i = 0; i < modes.length; i++) {
         DisplayMode mode = modes[i];
-        if (mode.getWidth() == WIDTH && mode.getHeight() == HEIGHT && mode.getBitsPerPixel() == 32 ) {
+        if (mode.getWidth() == WIDTH && mode.getHeight() == HEIGHT && mode.getBitsPerPixel() >= 24 ) {
           log.fine(mode.getWidth() + ", " + mode.getHeight() + ", " + mode.getBitsPerPixel() + ", " + mode.getFrequency());
           matching.add(mode);
         }

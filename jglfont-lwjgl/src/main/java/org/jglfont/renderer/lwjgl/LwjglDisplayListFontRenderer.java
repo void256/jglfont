@@ -1,21 +1,23 @@
 package org.jglfont.renderer.lwjgl;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.nio.ByteBuffer;
 import java.util.Hashtable;
 import java.util.Map;
 
-import org.jglfont.spi.BitmapFontRenderer;
+import org.jglfont.spi.JGLFontRenderer;
 import org.lwjgl.opengl.GL11;
 
 /**
- * Simple OpenGL display list based BitmapFontRenderer implementation. This is meant as a demo implementation and is
+ * Simple OpenGL display list based JGLFontRenderer implementation. This is meant as a demo implementation and is
  * using outdated OpenGL calls.
  *
  * @author void
  */
-public class LwjglDisplayListFontRenderer implements BitmapFontRenderer {
+public class LwjglDisplayListFontRenderer implements JGLFontRenderer {
   private Map<String, LwjglBitmapFontImage> textures = new Hashtable<String, LwjglBitmapFontImage>();
-  private Map<Character, Integer> displayListMap = new Hashtable<Character, Integer>();
+  private Map<Integer, Integer> displayListMap = new Hashtable<Integer, Integer>();
   private LwjglBitmapFontImage currentTexture;
 
   @Override
@@ -24,9 +26,14 @@ public class LwjglDisplayListFontRenderer implements BitmapFontRenderer {
   }
 
   @Override
+  public void registerBitmap(String bitmapId, ByteBuffer data, int width, int height, String filename) throws IOException {
+    textures.put(bitmapId, new LwjglBitmapFontImage(data, width, height, filename, false));
+  }
+
+  @Override
   public void registerGlyph(
       final String bitmapId,
-      final char character,
+      final int character,
       final int xoffset,
       final int yoffset,
       final int width,
@@ -79,7 +86,7 @@ public class LwjglDisplayListFontRenderer implements BitmapFontRenderer {
       final String bitmapId,
       final int x,
       final int y,
-      final char c,
+      final int c,
       final float sx,
       final float sy,
       final float r,

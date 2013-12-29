@@ -10,7 +10,7 @@ import java.io.IOError;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.jglfont.impl.format.angelcode.AngelCodeBitmapFontLoader;
+import org.jglfont.impl.format.angelcode.AngelCodeJGLFontLoader;
 import org.jglfont.impl.format.angelcode.AngelCodeLineProcessors;
 import org.junit.After;
 import org.junit.Before;
@@ -18,7 +18,7 @@ import org.junit.Test;
 
 
 public class AngelCodeFontLoaderThrowableTest {
-  private AngelCodeBitmapFontLoader fontLoader;
+  private AngelCodeJGLFontLoader fontLoader;
   private AngelCodeLineProcessors lineProcessorsMock;
   private boolean closeCalled = false;
 
@@ -27,17 +27,17 @@ public class AngelCodeFontLoaderThrowableTest {
     closeCalled = false;
     lineProcessorsMock = createMock(AngelCodeLineProcessors.class);
     replay(lineProcessorsMock);
-    fontLoader = new AngelCodeBitmapFontLoader(lineProcessorsMock);
+    fontLoader = new AngelCodeJGLFontLoader(lineProcessorsMock);
   }
 
   @Test(expected=Throwable.class)
   public void testInputStreamReadRuntimeException() throws Exception {
-    fontLoader.load(createInputStreamWithRuntimeException());
+    fontLoader.load(null, null, createInputStreamWithRuntimeException(), null, 0, 0 ,"");
   }
 
   @Test(expected=Throwable.class)
   public void testInputStreamReadRuntimeExceptionAndCloseException() throws Exception {
-    fontLoader.load(createInputStreamWithRuntimeExceptionAndCloseException());
+    fontLoader.load(null, null, createInputStreamWithRuntimeExceptionAndCloseException(), null, 0, 0 , "");
   }
 
   @After

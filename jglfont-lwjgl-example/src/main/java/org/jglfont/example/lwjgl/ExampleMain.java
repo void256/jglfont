@@ -6,8 +6,8 @@ import static org.lwjgl.opengl.GL11.glClearColor;
 
 import java.io.IOException;
 
-import org.jglfont.BitmapFont;
-import org.jglfont.BitmapFontFactory;
+import org.jglfont.JGLFont;
+import org.jglfont.JGLFontFactory;
 import org.jglfont.example.lwjgl.LwjglInitHelper.RenderLoopCallback;
 import org.jglfont.renderer.lwjgl.LwjglDisplayListFontRenderer;
 
@@ -22,10 +22,9 @@ public class ExampleMain {
       return;
     }
 
-    BitmapFontFactory factory = new BitmapFontFactory(new LwjglDisplayListFontRenderer());
-    final BitmapFont bitmapFont = factory.loadFont(
-        ExampleMain.class.getResourceAsStream("/verdana-small-regular.fnt"),
-        "verdana-small-regular.fnt");
+    JGLFontFactory factory = new JGLFontFactory(new LwjglDisplayListFontRenderer());
+    final JGLFont jglFont = factory.loadFont(
+        ExampleMain.class.getResourceAsStream("/verdana-small-regular.fnt"), "verdana-small-regular.fnt", 0);
 
     init.renderLoop(new RenderLoopCallback() {
       @Override
@@ -33,11 +32,11 @@ public class ExampleMain {
         glClearColor(0.15f, 0.15f, 0.3f, 1.f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        bitmapFont.renderText(100, 100, "Hello World!");
-        bitmapFont.renderText(100, 100, "Hello World!", (float)scale, (float)scale, 1.f, 0.f, 0.f, 0.4f);
+        jglFont.renderText(100, 100, "Hello World!");
+        jglFont.renderText(100, 100, "Hello World!", (float)scale, (float)scale, 1.f, 0.f, 0.f, 0.4f);
 
-        bitmapFont.renderText(100, 200, "String width: " + bitmapFont.getStringWidth("Hello World!", (float)scale));
-        bitmapFont.renderText(100, 200 + bitmapFont.getHeight(), "String height: " + bitmapFont.getHeight());
+        jglFont.renderText(100, 200, "String width: " + jglFont.getStringWidth("Hello World!", (float)scale));
+        jglFont.renderText(100, 200 + jglFont.getHeight(), "String height: " + jglFont.getHeight());
 
         long newTime = System.currentTimeMillis();
         while ((newTime - lastTime) < 14) {

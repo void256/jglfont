@@ -1,32 +1,31 @@
 package org.jglfont.impl;
 
-import static org.easymock.EasyMock.expect;
-import static org.easymock.classextension.EasyMock.createMock;
-import static org.easymock.classextension.EasyMock.replay;
-import static org.easymock.classextension.EasyMock.verify;
-
-import java.io.IOException;
-import java.io.InputStream;
-
-import org.jglfont.BitmapFont;
-import org.jglfont.impl.format.BitmapFontCharacterInfo;
-import org.jglfont.impl.format.BitmapFontData;
-import org.jglfont.spi.BitmapFontRenderer;
+import org.jglfont.JGLFont;
+import org.jglfont.impl.format.JGLAbstractFontData;
+import org.jglfont.impl.format.JGLBitmapFontData;
+import org.jglfont.impl.format.JGLFontGlyphInfo;
+import org.jglfont.spi.JGLFontRenderer;
 import org.jglfont.spi.ResourceLoader;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
+import java.io.InputStream;
 
-public class BitmapFontTest {
-  private BitmapFont bitmapFont;
-  private BitmapFontRenderer fontRenderer;
+import static org.easymock.EasyMock.expect;
+import static org.easymock.classextension.EasyMock.*;
+
+
+public class JGLFontImplTest {
+  private JGLFont jglFont;
+  private JGLFontRenderer fontRenderer;
   private ResourceLoader resourceLoader;
   private InputStream inputStreamMock;
 
   @Before
   public void before() {
-    fontRenderer = createMock(BitmapFontRenderer.class);
+    fontRenderer = createMock(JGLFontRenderer.class);
 
     inputStreamMock = createMock(InputStream.class);
     replay(inputStreamMock);
@@ -41,7 +40,7 @@ public class BitmapFontTest {
     initializeFontRenderer();
     replay(fontRenderer);
 
-    bitmapFont = new BitmapFontImpl(fontRenderer, resourceLoader, createBitmapFont(), "test.fnt");
+    jglFont = new JGLFontImpl(createBitmapFont());
   }
 
   @Test
@@ -53,8 +52,8 @@ public class BitmapFontTest {
     fontRenderer.afterRender();
     replay(fontRenderer);
 
-    bitmapFont = new BitmapFontImpl(fontRenderer, resourceLoader, createBitmapFont(), "test.fnt");
-    bitmapFont.renderText(100, 100, "a", 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
+    jglFont = new JGLFontImpl(createBitmapFont());
+    jglFont.renderText(100, 100, "a", 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
   }
 
   @Test
@@ -66,8 +65,8 @@ public class BitmapFontTest {
     fontRenderer.afterRender();
     replay(fontRenderer);
 
-    bitmapFont = new BitmapFontImpl(fontRenderer, resourceLoader, createBitmapFont(), "test.fnt");
-    bitmapFont.renderText(100, 100, "a");
+    jglFont = new JGLFontImpl(createBitmapFont());
+    jglFont.renderText(100, 100, "a");
   }
 
   @Test
@@ -81,8 +80,8 @@ public class BitmapFontTest {
     fontRenderer.afterRender();
     replay(fontRenderer);
 
-    bitmapFont = new BitmapFontImpl(fontRenderer, resourceLoader, createBitmapFont(), "test.fnt");
-    bitmapFont.renderText(100, 100, "ab", 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
+    jglFont = new JGLFontImpl(createBitmapFont());
+    jglFont.renderText(100, 100, "ab", 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
   }
 
   @Test
@@ -96,8 +95,8 @@ public class BitmapFontTest {
     fontRenderer.afterRender();
     replay(fontRenderer);
 
-    bitmapFont = new BitmapFontImpl(fontRenderer, resourceLoader, createBitmapFont(), "test.fnt");
-    bitmapFont.renderText(100, 100, "ba", 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
+    jglFont = new JGLFontImpl(createBitmapFont());
+    jglFont.renderText(100, 100, "ba", 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
   }
 
   @Test
@@ -112,8 +111,8 @@ public class BitmapFontTest {
     fontRenderer.afterRender();
     replay(fontRenderer);
 
-    bitmapFont = new BitmapFontImpl(fontRenderer, resourceLoader, createBitmapFont(), "test.fnt");
-    bitmapFont.renderText(100, 100, "b@a", 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
+    jglFont = new JGLFontImpl(createBitmapFont());
+    jglFont.renderText(100, 100, "b@a", 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
   }
 
   @Test
@@ -127,8 +126,8 @@ public class BitmapFontTest {
     fontRenderer.afterRender();
     replay(fontRenderer);
 
-    bitmapFont = new BitmapFontImpl(fontRenderer, resourceLoader, createBitmapFont(), "test.fnt");
-    bitmapFont.renderText(100, 100, "b\\#f00#a", 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
+    jglFont = new JGLFontImpl(createBitmapFont());
+    jglFont.renderText(100, 100, "b\\#f00#a", 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
   }
 
   @After
@@ -138,15 +137,15 @@ public class BitmapFontTest {
     verify(inputStreamMock);
   }
 
-  private BitmapFontData createBitmapFont() {
-    BitmapFontData font = new BitmapFontData();
+  private JGLAbstractFontData createBitmapFont() {
+    JGLAbstractFontData font = new JGLBitmapFontData(fontRenderer, resourceLoader, "test.fnt");
     font.setName("name");
     font.setBitmapHeight(256);
     font.setBitmapWidth(256);
     font.setLineHeight(25);
     font.addBitmap(0, "page1.png");
     
-    BitmapFontCharacterInfo charA = new BitmapFontCharacterInfo();
+    JGLFontGlyphInfo charA = new JGLFontGlyphInfo();
     charA.setId(1);
     charA.setPage("name-0");
     charA.setWidth(5);
@@ -156,10 +155,10 @@ public class BitmapFontTest {
     charA.setXoffset(0);
     charA.setYoffset(0);
     charA.setXadvance(5);
-    charA.addKerning('b', 12);
-    font.addCharacter('a', charA);
+    charA.addKerning((int)'b', 12);
+    font.addGlyph((int) 'a', charA);
     
-    BitmapFontCharacterInfo charB = new BitmapFontCharacterInfo();
+    JGLFontGlyphInfo charB = new JGLFontGlyphInfo();
     charB.setId(2);
     charB.setPage("name-0");
     charB.setWidth(5);
@@ -169,14 +168,16 @@ public class BitmapFontTest {
     charB.setXoffset(5);
     charB.setYoffset(0);
     charB.setXadvance(5);
-    font.addCharacter('b', charB);
+    font.addGlyph((int)'b', charB);
+
+    font.init();
     return font;
   }
 
   private void initializeFontRenderer() throws IOException {
     fontRenderer.registerBitmap("name-0", inputStreamMock, "page1.png");
-    fontRenderer.registerGlyph("name-0", 'b', 5, 0, 5, 10, 0.01953125f, 0.0f, 0.0390625f, 0.0390625f);
-    fontRenderer.registerGlyph("name-0", 'a', 0, 0, 5, 10, 0.0f, 0.0f, 0.01953125f, 0.0390625f);
+    fontRenderer.registerGlyph("name-0", (int)'b', 5, 0, 5, 10, 0.01953125f, 0.0f, 0.0390625f, 0.0390625f);
+    fontRenderer.registerGlyph("name-0", (int)'a', 0, 0, 5, 10, 0.0f, 0.0f, 0.01953125f, 0.0390625f);
     fontRenderer.prepare();
   }
 }

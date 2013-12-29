@@ -4,8 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import org.jglfont.impl.format.BitmapFontCharacterInfo;
-import org.jglfont.impl.format.BitmapFontData;
+import org.jglfont.impl.format.JGLBitmapFontData;
+import org.jglfont.impl.format.JGLFontGlyphInfo;
+import org.jglfont.impl.format.JGLAbstractFontData;
 import org.jglfont.impl.format.angelcode.AngelCodeLineData;
 import org.jglfont.impl.format.angelcode.line.CharLine;
 import org.junit.Before;
@@ -15,7 +16,7 @@ import org.junit.Test;
 public class CharLineTest {
   private CharLine charLine = new CharLine();
   private AngelCodeLineData line = new AngelCodeLineData();
-  private BitmapFontData font = new BitmapFontData();
+  private JGLAbstractFontData font = new JGLBitmapFontData(null, null, null);
 
   @Before
   public void before() {
@@ -25,7 +26,7 @@ public class CharLineTest {
   @Test
   public void testMissingMandatoryValue() {
     assertFalse(charLine.process(line, font));
-    assertTrue(font.getCharacters().isEmpty());
+    assertTrue(font.getGlyphs().isEmpty());
   }
 
   @Test
@@ -40,8 +41,8 @@ public class CharLineTest {
     assertTrue(charLine.process(line, font));
 
     assertTrue(font.getBitmaps().isEmpty());
-    assertEquals(1, font.getCharacters().size());
-    BitmapFontCharacterInfo charInfo = font.getCharacters().get('c');
+    assertEquals(1, font.getGlyphs().size());
+    JGLFontGlyphInfo charInfo = font.getGlyphs().get((int)'c');
     assertEquals(99, charInfo.getId());
     assertEquals(12, charInfo.getX());
     assertEquals(13, charInfo.getY());
@@ -68,8 +69,8 @@ public class CharLineTest {
     assertTrue(charLine.process(line, font));
 
     assertTrue(font.getBitmaps().isEmpty());
-    assertEquals(1, font.getCharacters().size());
-    BitmapFontCharacterInfo charInfo = font.getCharacters().get('c');
+    assertEquals(1, font.getGlyphs().size());
+    JGLFontGlyphInfo charInfo = font.getGlyphs().get((int)'c');
     assertEquals(99, charInfo.getId());
     assertEquals(12, charInfo.getX());
     assertEquals(13, charInfo.getY());

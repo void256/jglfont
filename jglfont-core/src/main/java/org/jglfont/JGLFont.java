@@ -2,10 +2,10 @@ package org.jglfont;
 
 
 /**
- * A BitmapFont ready to be rendered on screen.
+ * A JGLFont ready to be rendered on screen.
  * @author void
  */
-public interface BitmapFont {
+public interface JGLFont {
 
   /**
    * Output text at the given x and y positon. White will be used for the complete text.
@@ -38,12 +38,12 @@ public interface BitmapFont {
    * @param nextCharacter next character
    * @return the width of the character when followed by the given next character
    */
-  int getCharacterWidth(char currentCharacter, char nextCharacter);
+  int getCharacterWidth(int currentCharacter, int nextCharacter);
 
   /**
    * The same as the getCharacterWidth(int, char) method but takes a scaled size into account.
    */
-  int getCharacterWidth(char currentCharacter, char nextCharacter, float size);
+  int getCharacterWidth(int currentCharacter, int nextCharacter, float size);
 
   /**
    * Returns the width of the given String.

@@ -1,6 +1,6 @@
 package org.jglfont.impl.format.angelcode.line;
 
-import org.jglfont.impl.format.BitmapFontData;
+import org.jglfont.impl.format.JGLAbstractFontData;
 import org.jglfont.impl.format.angelcode.AngelCodeLine;
 import org.jglfont.impl.format.angelcode.AngelCodeLineData;
 
@@ -11,7 +11,7 @@ import org.jglfont.impl.format.angelcode.AngelCodeLineData;
 public class InfoLine implements AngelCodeLine {
 
   @Override
-  public boolean process(final AngelCodeLineData line, final BitmapFontData font) {
+  public boolean process(final AngelCodeLineData line, final JGLAbstractFontData font) {
     if (!line.hasValue("face")) {
       return false;
     }
