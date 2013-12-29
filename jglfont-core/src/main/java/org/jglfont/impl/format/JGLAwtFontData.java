@@ -95,7 +95,7 @@ public class JGLAwtFontData extends JGLAbstractFontData {
       int x = xPos * glyphWidth;
       int y = yPos * glyphHeight;
 
-      int w = (int) bounds.getWidth() + 5; // + 5 is the hack for the italic case
+      int w = (int) glyphWidth; // + 5 is the hack for the italic case
       int h = (int) bounds.getHeight();
 
 

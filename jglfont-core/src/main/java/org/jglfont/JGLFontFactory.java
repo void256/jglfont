@@ -22,11 +22,13 @@ public class JGLFontFactory {
 
   private final JGLFontRenderer fontRenderer;
   private final ResourceLoader resourceLoader;
-  private final String defaultSuffix = "fnt";
+  private final static String defaultSuffix = "fnt";
+  private final static JGLFontLoader systemLoader;
 
   private final static Map<String, JGLFontLoader> loaders = new ConcurrentHashMap<String, JGLFontLoader>();
 
   static {
+    systemLoader = new AwtJGLFontLoader();
     loaders.put("fnt", new AngelCodeJGLFontLoader(new AngelCodeLineProcessors()));
     loaders.put("ttf", new AwtJGLFontLoader());
   }
@@ -103,7 +105,7 @@ public class JGLFontFactory {
   }
 
   public JGLFont loadFont(final InputStream stream, final String filename, final int size, final int style, final String params) throws IOException {
-    String suffix = defaultSuffix;
+    String suffix = "";
 
     int i = filename.lastIndexOf('.');
     if (i > 0) {
@@ -111,13 +113,18 @@ public class JGLFontFactory {
     }
 
     JGLFontLoader loader = loaders.get(suffix);
-    if (loader == null) {
-      loader = loaders.get(defaultSuffix);
-    }
 
     InputStream is = stream;
     if (is == null) {
       is = resourceLoader.load(filename);
+    }
+
+    if (loader == null) {
+      if (is == null) {
+        loader = systemLoader;
+      } else {
+        loader = loaders.get(defaultSuffix);
+      }
     }
 
     return new JGLFontImpl(loader.load(fontRenderer, resourceLoader, is, filename, size, style, params));

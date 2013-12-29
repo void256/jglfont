@@ -30,11 +30,15 @@ public class AwtJGLFontLoader implements JGLFontLoader {
           final String params
   ) throws IOException {
 
-    Font baseFont;
-    try {
-      baseFont = Font.createFont(Font.TRUETYPE_FONT, in);
-    } catch (FontFormatException e) {
-      throw new IOException(e);
+    Font font;
+    if (in != null) {
+      try {
+        font = Font.createFont(Font.TRUETYPE_FONT, in);
+      } catch (FontFormatException e) {
+        throw new IOException(e);
+      }
+    } else {
+      font = Font.decode(filename);
     }
 
     int glyphSide = 256;
@@ -54,13 +58,15 @@ public class AwtJGLFontLoader implements JGLFontLoader {
       }
     }
 
-    //noinspection unchecked
-    Map<TextAttribute, Object> attributes = (Map<TextAttribute, Object>) baseFont.getAttributes();
-    attributes.put(TextAttribute.SIZE, size);
-    attributes.put(TextAttribute.WEIGHT, bold ? TextAttribute.WEIGHT_BOLD : TextAttribute.WEIGHT_REGULAR);
-    attributes.put(TextAttribute.POSTURE, italic ? TextAttribute.POSTURE_OBLIQUE : TextAttribute.POSTURE_REGULAR);
-    attributes.put(TextAttribute.KERNING, TextAttribute.KERNING_ON);
-    Font font = baseFont.deriveFont(attributes);
+    if (in != null) {
+      //noinspection unchecked
+      Map<TextAttribute, Object> attributes = (Map<TextAttribute, Object>) font.getAttributes();
+      attributes.put(TextAttribute.SIZE, size);
+      attributes.put(TextAttribute.WEIGHT, bold ? TextAttribute.WEIGHT_BOLD : TextAttribute.WEIGHT_REGULAR);
+      attributes.put(TextAttribute.POSTURE, italic ? TextAttribute.POSTURE_OBLIQUE : TextAttribute.POSTURE_REGULAR);
+      attributes.put(TextAttribute.KERNING, TextAttribute.KERNING_ON);
+      font = font.deriveFont(attributes);
+    }
 
     JGLAbstractFontData data = new JGLAwtFontData(renderer, resourceLoader, font, glyphSide);
     data.init();
