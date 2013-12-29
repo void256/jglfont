@@ -43,6 +43,8 @@ public class JGLAwtFontData extends JGLAbstractFontData {
     glyphWidth = fontMetrics.getMaxAdvance();
     glyphHeight = fontMetrics.getHeight();
 
+    setLineHeight(glyphHeight);
+
     setBitmapWidth(glyphWidth * 16);
     setBitmapHeight(glyphHeight * 16);
   }
@@ -95,8 +97,8 @@ public class JGLAwtFontData extends JGLAbstractFontData {
       int x = xPos * glyphWidth;
       int y = yPos * glyphHeight;
 
-      int w = (int) glyphWidth; // + 5 is the hack for the italic case
-      int h = (int) bounds.getHeight();
+      int w = glyphWidth; // + 5 is the hack for the italic case
+      int h = glyphHeight;
 
 
       JGLFontGlyphInfo info = new JGLFontGlyphInfo();

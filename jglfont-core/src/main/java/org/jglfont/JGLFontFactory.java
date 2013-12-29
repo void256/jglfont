@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Logger;
 
 import org.jglfont.impl.JGLFontImpl;
 import org.jglfont.impl.ClasspathResourceLoader;
@@ -16,6 +17,8 @@ import org.jglfont.spi.JGLFontRenderer;
 import org.jglfont.spi.ResourceLoader;
 
 public class JGLFontFactory {
+  private static final Logger log = Logger.getLogger(JGLFontFactory.class.getName());
+
   public final static int FONT_STYLE_NONE   = 0;
   public final static int FONT_STYLE_BOLD   = 1;
   public final static int FONT_STYLE_ITALIC = 1<<1;
@@ -23,20 +26,34 @@ public class JGLFontFactory {
   private final JGLFontRenderer fontRenderer;
   private final ResourceLoader resourceLoader;
   private final static String defaultSuffix = "fnt";
-  private final static JGLFontLoader systemLoader;
+  private static JGLFontLoader systemLoader;
 
   private final static Map<String, JGLFontLoader> loaders = new ConcurrentHashMap<String, JGLFontLoader>();
 
   static {
     loaders.put("fnt", new AngelCodeJGLFontLoader(new AngelCodeLineProcessors()));
+    systemLoader = new AngelCodeJGLFontLoader(new AngelCodeLineProcessors());
 
-    String awt = System.getProperty("jglfont.awt");
-    if (awt != null && awt.equalsIgnoreCase("true")) {
-      loaders.put("ttf", new AwtJGLFontLoader());
-      systemLoader = new AwtJGLFontLoader();
-    } else {
-      systemLoader = new AngelCodeJGLFontLoader(new AngelCodeLineProcessors());
+    try {
+      // test for awt availability on current platform
+      Class.forName("java.awt.Font");
+      enableAwt();
+    } catch (ClassNotFoundException ignore) {
+      log.info("TrueType Font rendering will not be available due to missing java.awt package on your platform");
     }
+  }
+
+  public static void enableAwt() {
+    loaders.put("ttf", new AwtJGLFontLoader());
+    systemLoader = new AwtJGLFontLoader();
+  }
+
+  public static void addLoader(String suffix, JGLFontLoader loader) {
+    loaders.put(suffix, loader);
+  }
+
+  public static void  setSystemLoader(JGLFontLoader loader) {
+    systemLoader = loader;
   }
 
   public JGLFontFactory(final JGLFontRenderer fontRenderer) {

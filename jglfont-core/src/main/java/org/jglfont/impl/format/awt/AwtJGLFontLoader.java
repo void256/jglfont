@@ -12,6 +12,7 @@ import java.awt.font.TextAttribute;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
+import java.util.logging.Logger;
 
 /**
  * User: iamtakingiteasy
@@ -19,6 +20,8 @@ import java.util.Map;
  * Time: 03:24
  */
 public class AwtJGLFontLoader implements JGLFontLoader {
+  private static final Logger log = Logger.getLogger(AwtJGLFontLoader.class.getName());
+
   @Override
   public JGLAbstractFontData load(
           final JGLFontRenderer renderer,
@@ -67,7 +70,7 @@ public class AwtJGLFontLoader implements JGLFontLoader {
       attributes.put(TextAttribute.KERNING, TextAttribute.KERNING_ON);
       font = font.deriveFont(attributes);
     }
-
+    log.fine("Font loaded: " + font.toString());
     JGLAbstractFontData data = new JGLAwtFontData(renderer, resourceLoader, font, glyphSide);
     data.init();
     return data;
