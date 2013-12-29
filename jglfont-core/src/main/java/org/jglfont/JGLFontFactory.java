@@ -8,7 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Logger;
 
 import org.jglfont.impl.JGLFontImpl;
-import org.jglfont.impl.ClasspathResourceLoader;
+import org.jglfont.impl.ResourceLoaderImpl;
 import org.jglfont.impl.format.JGLFontLoader;
 import org.jglfont.impl.format.angelcode.AngelCodeJGLFontLoader;
 import org.jglfont.impl.format.angelcode.AngelCodeLineProcessors;
@@ -57,12 +57,16 @@ public class JGLFontFactory {
   }
 
   public JGLFontFactory(final JGLFontRenderer fontRenderer) {
-    this(fontRenderer, new ClasspathResourceLoader());
+    this(fontRenderer, new ResourceLoaderImpl());
   }
 
   public JGLFontFactory(final JGLFontRenderer fontRenderer, final ResourceLoader resourceLoader) {
     this.fontRenderer = fontRenderer;
     this.resourceLoader = resourceLoader;
+  }
+
+  public JGLFont loadFont(final String fontName) throws IOException {
+    return loadFont(null, fontName);
   }
 
   public JGLFont loadFont(final InputStream stream, final String filenameWithHash) throws IOException {
