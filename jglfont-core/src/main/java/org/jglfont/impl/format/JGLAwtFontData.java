@@ -5,6 +5,7 @@ import org.jglfont.spi.ResourceLoader;
 
 import java.awt.*;
 import java.awt.font.GlyphVector;
+import java.awt.font.TextLayout;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
@@ -78,7 +79,6 @@ public class JGLAwtFontData extends JGLAbstractFontData {
       char[] codepoint = Character.toChars(ch);
 
       GlyphVector glyphVector = font.layoutGlyphVector(glyphGraphics.getFontRenderContext(), codepoint, 0, codepoint.length, Font.LAYOUT_LEFT_TO_RIGHT);
-      Shape shape = glyphVector.getGlyphLogicalBounds(0);
 
       glyphGraphics.setBackground(new Color(255, 255, 255, 0));
       glyphGraphics.clearRect(0, 0, glyphSide, glyphSide);
@@ -87,14 +87,16 @@ public class JGLAwtFontData extends JGLAbstractFontData {
       String chrd = new String(codepoint);
       glyphGraphics.drawString(chrd, 0, fontMetrics.getHeight() - fontMetrics.getDescent());
 
-      Rectangle2D bounds = shape.getBounds2D();
+      Rectangle2D bounds = glyphVector.getGlyphLogicalBounds(0).getBounds();
+
       int xPos = i%16;
       int yPos = i/16;
 
       int x = xPos * glyphWidth;
       int y = yPos * glyphHeight;
-      int w = (int)bounds.getWidth();
-      int h = (int)bounds.getHeight();
+
+      int w = (int) bounds.getWidth() + 5; // + 5 is the hack for the italic case
+      int h = (int) bounds.getHeight();
 
 
       JGLFontGlyphInfo info = new JGLFontGlyphInfo();
