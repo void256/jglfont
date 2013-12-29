@@ -28,9 +28,15 @@ public class JGLFontFactory {
   private final static Map<String, JGLFontLoader> loaders = new ConcurrentHashMap<String, JGLFontLoader>();
 
   static {
-    systemLoader = new AwtJGLFontLoader();
     loaders.put("fnt", new AngelCodeJGLFontLoader(new AngelCodeLineProcessors()));
-    loaders.put("ttf", new AwtJGLFontLoader());
+
+    String awt = System.getProperty("jglfont.awt");
+    if (awt != null && awt.equalsIgnoreCase("true")) {
+      loaders.put("ttf", new AwtJGLFontLoader());
+      systemLoader = new AwtJGLFontLoader();
+    } else {
+      systemLoader = new AngelCodeJGLFontLoader(new AngelCodeLineProcessors());
+    }
   }
 
   public JGLFontFactory(final JGLFontRenderer fontRenderer) {
