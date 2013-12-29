@@ -4,7 +4,6 @@ import org.jglfont.spi.JGLFontRenderer;
 import org.jglfont.spi.ResourceLoader;
 
 import java.awt.*;
-import java.awt.font.FontRenderContext;
 import java.awt.font.GlyphVector;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
@@ -66,7 +65,6 @@ public class JGLAwtFontData extends JGLAbstractFontData {
 
   @Override
   public void init() {
-    loadPage(0);
   }
 
   private void loadPage(int page) {
@@ -79,7 +77,6 @@ public class JGLAwtFontData extends JGLAbstractFontData {
       int ch = page * 256 + i;
       char[] codepoint = Character.toChars(ch);
 
-      //Graphics2D glyphGraphics = createGraphics();
       GlyphVector glyphVector = font.layoutGlyphVector(glyphGraphics.getFontRenderContext(), codepoint, 0, codepoint.length, Font.LAYOUT_LEFT_TO_RIGHT);
       Shape shape = glyphVector.getGlyphLogicalBounds(0);
 
@@ -121,14 +118,12 @@ public class JGLAwtFontData extends JGLAbstractFontData {
 
           int pos = (y+m) * getBitmapWidth() + (x+n);
 
-          texture.put(pos*4,   b);
-          texture.put(pos*4+1, b);
-          texture.put(pos*4+2, b);
-          texture.put(pos*4+3, (byte) 0xFF);
+          texture.put(pos*4,   (byte) 0xFF);
+          texture.put(pos*4+1, (byte) 0XFF);
+          texture.put(pos*4+2, (byte) 0xFF);
+          texture.put(pos*4+3, b);
         }
       }
-
-      //glyphGraphics.dispose();
     }
 
     try {
