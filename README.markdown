@@ -11,21 +11,33 @@ other formats.
     <dependency>
       <groupId>org.jglfont</groupId>
       <artifactId>jglfont-core</artifactId>
-      <version>1.0-SNAPSHOT</version>
+      <version>1.4-SNAPSHOT</version>
     </dependency>
 
     <!-- include the lwjgl connector -->
     <dependency>
       <groupId>org.jglfont</groupId>
       <artifactId>jglfont-lwjgl</artifactId>
-      <version>1.0-SNAPSHOT</version>
+      <version>1.4-SNAPSHOT</version>
     </dependency>
 
 **Example**
     
     JGLFontFactory factory = new JGLFontFactory(new LwjglDisplayListFontRenderer());
-    JGLFont jglFont = factory.loadFont(ExampleMain.class.getResourceAsStream("/verdana-small-regular.fnt"));
+    JGLFont jglFont = factory.loadFont("verdana-small-regular.fnt");
     jglFont.renderText(100, 100, "Hello World!");
+
+**Loading examples**
+    // system fonts
+    jglFont = factory.loadFont("Liberation Sans Italic 36");
+    jglFont = factory.loadFont("Liberation Sans Italic Bold 36");
+    jglFont = factory.loadFont("Liberation Mono");
+
+    // Resource-Loading fonts
+    jglFont = factory.loadFont("liberation.ttf");
+    jglFont = factory.loadFont("liberation.ttf#size=16");
+    jglFont = factory.loadFont("liberation.ttf#size=16;italic;bold");
+    jglFont = factory.loadFont("liberation.ttf#size=16;glyphSide=256");
 	
 **License**
 
