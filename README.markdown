@@ -28,6 +28,7 @@ other formats.
     jglFont.renderText(100, 100, "Hello World!");
 
 **Loading examples**
+
     // system fonts
     jglFont = factory.loadFont("Liberation Sans Italic 36");
     jglFont = factory.loadFont("Liberation Sans Italic Bold 36");
