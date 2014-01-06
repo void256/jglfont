@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 
 /**
@@ -187,7 +188,7 @@ public abstract class JGLAbstractFontData {
   /**
    * Glyph table class
    */
-  private class GlyphTable extends Hashtable<Integer,JGLFontGlyphInfo> {
+  private class GlyphTable extends ConcurrentHashMap<Integer,JGLFontGlyphInfo> {
     @Override
     public synchronized JGLFontGlyphInfo get(Object key) {
       if (key instanceof Integer) {

@@ -46,10 +46,10 @@ public class JGLFontImplTest {
   @Test
   public void testRenderSingleCharacter() throws Exception {
     initializeFontRenderer();
-    fontRenderer.beforeRender();
+    fontRenderer.beforeRender("name");
     expect(fontRenderer.preProcess("a", 0)).andReturn(0);
-    fontRenderer.render("name-0", 100, 100, 'a', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
-    fontRenderer.afterRender();
+    fontRenderer.render("name", "name-0", 100, 100, 'a', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
+    fontRenderer.afterRender("name");
     replay(fontRenderer);
 
     jglFont = new JGLFontImpl(createBitmapFont());
@@ -59,10 +59,10 @@ public class JGLFontImplTest {
   @Test
   public void testRenderSingleCharacterShortMethod() throws Exception {
     initializeFontRenderer();
-    fontRenderer.beforeRender();
+    fontRenderer.beforeRender("name");
     expect(fontRenderer.preProcess("a", 0)).andReturn(0);
-    fontRenderer.render("name-0", 100, 100, 'a', 1.f, 1.f, 1.f, 1.f, 1.f, 1.f);
-    fontRenderer.afterRender();
+    fontRenderer.render("name", "name-0", 100, 100, 'a', 1.f, 1.f, 1.f, 1.f, 1.f, 1.f);
+    fontRenderer.afterRender("name");
     replay(fontRenderer);
 
     jglFont = new JGLFontImpl(createBitmapFont());
@@ -72,12 +72,12 @@ public class JGLFontImplTest {
   @Test
   public void testRenderStringWithKerning() throws Exception {
     initializeFontRenderer();
-    fontRenderer.beforeRender();
+    fontRenderer.beforeRender("name");
     expect(fontRenderer.preProcess("ab", 0)).andReturn(0);
-    fontRenderer.render("name-0", 100, 100, 'a', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
+    fontRenderer.render("name", "name-0", 100, 100, 'a', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
     expect(fontRenderer.preProcess("ab", 1)).andReturn(1);
-    fontRenderer.render("name-0", 117, 100, 'b', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
-    fontRenderer.afterRender();
+    fontRenderer.render("name", "name-0", 117, 100, 'b', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
+    fontRenderer.afterRender("name");
     replay(fontRenderer);
 
     jglFont = new JGLFontImpl(createBitmapFont());
@@ -87,12 +87,12 @@ public class JGLFontImplTest {
   @Test
   public void testRenderStringWithoutKerning() throws Exception {
     initializeFontRenderer();
-    fontRenderer.beforeRender();
+    fontRenderer.beforeRender("name");
     expect(fontRenderer.preProcess("ba", 0)).andReturn(0);
-    fontRenderer.render("name-0", 100, 100, 'b', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
+    fontRenderer.render("name", "name-0", 100, 100, 'b', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
     expect(fontRenderer.preProcess("ba", 1)).andReturn(1);
-    fontRenderer.render("name-0", 105, 100, 'a', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
-    fontRenderer.afterRender();
+    fontRenderer.render("name", "name-0", 105, 100, 'a', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
+    fontRenderer.afterRender("name");
     replay(fontRenderer);
 
     jglFont = new JGLFontImpl(createBitmapFont());
@@ -102,13 +102,13 @@ public class JGLFontImplTest {
   @Test
   public void testRenderStringWithoutKerningAndMissingGlyph() throws Exception {
     initializeFontRenderer();
-    fontRenderer.beforeRender();
+    fontRenderer.beforeRender("name");
     expect(fontRenderer.preProcess("b@a", 0)).andReturn(0);
-    fontRenderer.render("name-0", 100, 100, 'b', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
+    fontRenderer.render("name", "name-0", 100, 100, 'b', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
     expect(fontRenderer.preProcess("b@a", 1)).andReturn(1);
     expect(fontRenderer.preProcess("b@a", 2)).andReturn(2);
-    fontRenderer.render("name-0", 105, 100, 'a', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
-    fontRenderer.afterRender();
+    fontRenderer.render("name", "name-0", 105, 100, 'a', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
+    fontRenderer.afterRender("name");
     replay(fontRenderer);
 
     jglFont = new JGLFontImpl(createBitmapFont());
@@ -118,12 +118,12 @@ public class JGLFontImplTest {
   @Test
   public void testRenderStringColorEncoded() throws Exception {
     initializeFontRenderer();
-    fontRenderer.beforeRender();
+    fontRenderer.beforeRender("name");
     expect(fontRenderer.preProcess("b\\#f00#a", 0)).andReturn(0);
-    fontRenderer.render("name-0", 100, 100, 'b', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
+    fontRenderer.render("name", "name-0", 100, 100, 'b', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
     expect(fontRenderer.preProcess("b\\#f00#a", 1)).andReturn(7);
-    fontRenderer.render("name-0", 105, 100, 'a', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
-    fontRenderer.afterRender();
+    fontRenderer.render("name", "name-0", 105, 100, 'a', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
+    fontRenderer.afterRender("name");
     replay(fontRenderer);
 
     jglFont = new JGLFontImpl(createBitmapFont());
@@ -175,9 +175,9 @@ public class JGLFontImplTest {
   }
 
   private void initializeFontRenderer() throws IOException {
-    fontRenderer.registerBitmap("name-0", inputStreamMock, "page1.png");
-    fontRenderer.registerGlyph("name-0", (int)'b', 5, 0, 5, 10, 0.01953125f, 0.0f, 0.0390625f, 0.0390625f);
-    fontRenderer.registerGlyph("name-0", (int)'a', 0, 0, 5, 10, 0.0f, 0.0f, 0.01953125f, 0.0390625f);
+    fontRenderer.registerBitmap("name", "name-0", inputStreamMock, "page1.png");
+    fontRenderer.registerGlyph("name", "name-0", (int)'b', 5, 0, 5, 10, 0.01953125f, 0.0f, 0.0390625f, 0.0390625f);
+    fontRenderer.registerGlyph("name", "name-0", (int)'a', 0, 0, 5, 10, 0.0f, 0.0f, 0.01953125f, 0.0390625f);
     fontRenderer.prepare();
   }
 }

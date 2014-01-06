@@ -22,7 +22,7 @@ public interface JGLFontRenderer {
    * @param key the key for this specific bitmap
    * @param data the inputstream to the data
    */
-  void registerBitmap(final String key, InputStream data, String filename) throws IOException;
+  void registerBitmap(final String fontName, final String key, InputStream data, String filename) throws IOException;
 
   /**
    * Registers the bitmap with the given data in form of bytebuffer, having 32 bit per pixel layout (r,g,b,a)
@@ -34,7 +34,7 @@ public interface JGLFontRenderer {
    * @param filename name of file
    * @throws IOException
    */
-  void registerBitmap(final String key, ByteBuffer data, int width, int height, String filename) throws IOException;
+  void registerBitmap(final String fontName, final String key, final ByteBuffer data, int width, int height, String filename) throws IOException;
 
   /**
    * Register a single Character Glyph for later rendering.
@@ -48,7 +48,7 @@ public interface JGLFontRenderer {
    * @param u1 the x texture coordinates of the bottom right point
    * @param v1 the y texture coordinates of the bottom right point
    */
-  void registerGlyph(String bitmapId, int c, int xoff, int yoff, int w, int h, float u0, float v0, float u1, float v1);
+  void registerGlyph(String fontName, String bitmapId, int c, int xoff, int yoff, int w, int h, float u0, float v0, float u1, float v1);
 
   /**
    * This is called after all registerBitmap() and registerGlyph() calls are done. This can be used to do more
@@ -61,7 +61,7 @@ public interface JGLFontRenderer {
    * text rendering calls or it might allow the implementation to cache state between render() states
    * (f.i. texture state).
    */
-  void beforeRender();
+  void beforeRender(String fontName);
 
   /**
    * This allows any pre-processing of the next characters to happen. You're given the complete text and the
@@ -91,12 +91,12 @@ public interface JGLFontRenderer {
    * @param b blue
    * @param a alpha
    */
-  void render(String bitmapId, int x, int y, int c, float sx, float sy, float r, float g, float b, float a);
+  void render(String fontName, String bitmapId, int x, int y, int c, float sx, float sy, float r, float g, float b, float a);
 
   /**
    * This is called after several render() calls.
    */
-  void afterRender();
+  void afterRender(String fontName);
 
   /**
    * This allows any pre-processing of the next characters to happen when the width of a text is to be calculated.
