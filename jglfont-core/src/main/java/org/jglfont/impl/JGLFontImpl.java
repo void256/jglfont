@@ -4,6 +4,8 @@ import org.jglfont.JGLFont;
 import org.jglfont.impl.format.JGLAbstractFontData;
 import org.jglfont.impl.format.JGLFontGlyphInfo;
 
+import java.util.*;
+
 /**
  * The core JGLFont class represents a bitmap font :) that can render text.
  * To create a JGLFont instance you need a JGLFontRenderer and a JGLFontLoader or
@@ -52,8 +54,9 @@ public class JGLFontImpl implements JGLFont {
     }
 
     int xPos = x;
-    int yPos = y;
-    fontData.getRenderer().beforeRender();
+
+    List<CharPos> charPoses = new ArrayList<CharPos>();
+
     for (int offset = 0; offset < text.length(); /* no increment */) {
       offset = fontData.getRenderer().preProcess(text, offset);
       if (offset >= text.length()) {
@@ -66,11 +69,40 @@ public class JGLFontImpl implements JGLFont {
 
       JGLFontGlyphInfo characterInfo = fontData.getGlyphs().get(currentCodepoint);
       if (characterInfo != null) {
-        fontData.getRenderer().render(characterInfo.getPage(), xPos, yPos, currentCodepoint, sizeX, sizeY, r, g, b, a);
+        charPoses.add(new CharPos(characterInfo, currentCodepoint, xPos));
         xPos += (float) getCharacterWidth(currentCodepoint, nextCodePoint, sizeX);
       }
     }
-    fontData.getRenderer().afterRender();
+
+    Collections.sort(charPoses, new Comparator<CharPos>() {
+      @Override
+      public int compare(CharPos o1, CharPos o2) {
+        return o1.getInfo().getPage().compareTo(o2.getInfo().getPage());
+      }
+    });
+
+    Iterator<CharPos> iterator = charPoses.iterator();
+    CharPos pos = null;
+    CharPos npos;
+    boolean leftover = false;
+    while (iterator.hasNext() || leftover) {
+      fontData.getRenderer().beforeRender(fontData.getName());
+      if (pos != null) {
+        fontData.getRenderer().render(fontData.getName(), pos.getInfo().getPage(), pos.getxPos(), y, pos.getCh(), sizeX, sizeY, r, g, b, a);
+        leftover = false;
+      }
+      while (iterator.hasNext()) {
+        npos = iterator.next();
+        if (pos != null && !pos.getInfo().getPage().equals(npos.getInfo().getPage())) {
+          pos = npos;
+          leftover = true;
+          break;
+        }
+        pos = npos;
+        fontData.getRenderer().render(fontData.getName(), npos.getInfo().getPage(), npos.getxPos(), y, npos.getCh(), sizeX, sizeY, r, g, b, a);
+      }
+      fontData.getRenderer().afterRender(fontData.getName());
+    }
   }
 
   @Override

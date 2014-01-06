@@ -18,6 +18,7 @@ public class JGLBitmapFontData extends JGLAbstractFontData {
   public JGLBitmapFontData(JGLFontRenderer renderer, ResourceLoader resourceLoader, String filename) {
     super(renderer, resourceLoader);
     this.filename = filename;
+    setName(filename);
   }
 
   @Override
@@ -30,9 +31,10 @@ public class JGLBitmapFontData extends JGLAbstractFontData {
       try {
         String filename = path + entry.getValue();
         getRenderer().registerBitmap(
-                bitmapKey(entry.getKey()),
-                resourceLoader.load(filename),
-                filename);
+            getName(),
+            bitmapKey(entry.getKey()),
+            resourceLoader.load(filename),
+            filename);
       } catch (IOException e) {
         throw new JGLFontException(e);
       }
@@ -57,16 +59,17 @@ public class JGLBitmapFontData extends JGLAbstractFontData {
       JGLFontGlyphInfo charInfo = entry.getValue();
       if (charInfo != null) {
         getRenderer().registerGlyph(
-                charInfo.getPage(),
-                c,
-                charInfo.getXoffset(),
-                charInfo.getYoffset(),
-                charInfo.getWidth(),
-                charInfo.getHeight(),
-                charInfo.getX() / (float) getBitmapWidth(),
-                charInfo.getY() / (float) getBitmapHeight(),
-                (charInfo.getX() + charInfo.getWidth()) / (float) getBitmapWidth(),
-                (charInfo.getY() + charInfo.getHeight()) / (float) getBitmapHeight());
+            getName(),
+            charInfo.getPage(),
+            c,
+            charInfo.getXoffset(),
+            charInfo.getYoffset(),
+            charInfo.getWidth(),
+            charInfo.getHeight(),
+            charInfo.getX() / (float) getBitmapWidth(),
+            charInfo.getY() / (float) getBitmapHeight(),
+            (charInfo.getX() + charInfo.getWidth()) / (float) getBitmapWidth(),
+            (charInfo.getY() + charInfo.getHeight()) / (float) getBitmapHeight());
       }
     }
   }

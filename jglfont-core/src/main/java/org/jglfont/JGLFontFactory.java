@@ -73,9 +73,7 @@ public class JGLFontFactory {
     String hash = "";
     String filename = filenameWithHash;
     int i = filenameWithHash.lastIndexOf('#');
-    int sep = filenameWithHash.lastIndexOf(File.separatorChar);
-    int dot = filenameWithHash.lastIndexOf('.');
-    if (i > 0 && i > sep && i > dot) {
+    if (i > 0) {
       hash = filenameWithHash.substring(i+1);
       filename = filenameWithHash.substring(0, i);
     }

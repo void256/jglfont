@@ -21,17 +21,18 @@ public class LwjglDisplayListFontRenderer implements JGLFontRenderer {
   private LwjglBitmapFontImage currentTexture;
 
   @Override
-  public void registerBitmap(final String bitmapId, final InputStream data, final String filename) {
+  public void registerBitmap(final String fontName, final String bitmapId, final InputStream data, final String filename) {
     textures.put(bitmapId, new LwjglBitmapFontImage(data, filename, false));
   }
 
   @Override
-  public void registerBitmap(String bitmapId, ByteBuffer data, int width, int height, String filename) throws IOException {
+  public void registerBitmap(final String fontName, String bitmapId, ByteBuffer data, int width, int height, String filename) throws IOException {
     textures.put(bitmapId, new LwjglBitmapFontImage(data, width, height, filename, false));
   }
 
   @Override
   public void registerGlyph(
+      final String fontName,
       final String bitmapId,
       final int character,
       final int xoffset,
@@ -69,7 +70,7 @@ public class LwjglDisplayListFontRenderer implements JGLFontRenderer {
   }
 
   @Override
-  public void beforeRender() {
+  public void beforeRender(final String fontName) {
     currentTexture = null;
 
     GL11.glMatrixMode(GL11.GL_MODELVIEW);
@@ -83,6 +84,7 @@ public class LwjglDisplayListFontRenderer implements JGLFontRenderer {
 
   @Override
   public void render(
+      final String fontName,
       final String bitmapId,
       final int x,
       final int y,
@@ -107,7 +109,7 @@ public class LwjglDisplayListFontRenderer implements JGLFontRenderer {
   }
 
   @Override
-  public void afterRender() {
+  public void afterRender(final String fontName) {
     GL11.glPopMatrix();
   }
 
