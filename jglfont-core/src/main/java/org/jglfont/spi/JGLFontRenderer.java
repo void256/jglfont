@@ -60,8 +60,10 @@ public interface JGLFontRenderer {
    * This is called before several render() calls are happening. This method can be used to set up state for upcoming
    * text rendering calls or it might allow the implementation to cache state between render() states
    * (f.i. texture state).
+   *
+   * @param customRenderState some user object provided by JGLFont.setCustomRenderState() or null
    */
-  void beforeRender();
+  void beforeRender(Object customRenderState);
 
   /**
    * This allows any pre-processing of the next characters to happen. You're given the complete text and the

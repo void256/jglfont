@@ -69,7 +69,7 @@ public class LwjglDisplayListFontRenderer implements JGLFontRenderer {
   }
 
   @Override
-  public void beforeRender() {
+  public void beforeRender(final Object o) {
     currentTexture = null;
 
     GL11.glMatrixMode(GL11.GL_MODELVIEW);

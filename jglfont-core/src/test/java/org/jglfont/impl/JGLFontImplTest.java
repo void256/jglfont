@@ -46,7 +46,7 @@ public class JGLFontImplTest {
   @Test
   public void testRenderSingleCharacter() throws Exception {
     initializeFontRenderer();
-    fontRenderer.beforeRender();
+    fontRenderer.beforeRender(null);
     expect(fontRenderer.preProcess("a", 0)).andReturn(0);
     fontRenderer.render("name-0", 100, 100, 'a', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
     fontRenderer.afterRender();
@@ -59,7 +59,7 @@ public class JGLFontImplTest {
   @Test
   public void testRenderSingleCharacterShortMethod() throws Exception {
     initializeFontRenderer();
-    fontRenderer.beforeRender();
+    fontRenderer.beforeRender(null);
     expect(fontRenderer.preProcess("a", 0)).andReturn(0);
     fontRenderer.render("name-0", 100, 100, 'a', 1.f, 1.f, 1.f, 1.f, 1.f, 1.f);
     fontRenderer.afterRender();
@@ -72,7 +72,7 @@ public class JGLFontImplTest {
   @Test
   public void testRenderStringWithKerning() throws Exception {
     initializeFontRenderer();
-    fontRenderer.beforeRender();
+    fontRenderer.beforeRender(null);
     expect(fontRenderer.preProcess("ab", 0)).andReturn(0);
     fontRenderer.render("name-0", 100, 100, 'a', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
     expect(fontRenderer.preProcess("ab", 1)).andReturn(1);
@@ -87,7 +87,7 @@ public class JGLFontImplTest {
   @Test
   public void testRenderStringWithoutKerning() throws Exception {
     initializeFontRenderer();
-    fontRenderer.beforeRender();
+    fontRenderer.beforeRender(null);
     expect(fontRenderer.preProcess("ba", 0)).andReturn(0);
     fontRenderer.render("name-0", 100, 100, 'b', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
     expect(fontRenderer.preProcess("ba", 1)).andReturn(1);
@@ -102,7 +102,7 @@ public class JGLFontImplTest {
   @Test
   public void testRenderStringWithoutKerningAndMissingGlyph() throws Exception {
     initializeFontRenderer();
-    fontRenderer.beforeRender();
+    fontRenderer.beforeRender(null);
     expect(fontRenderer.preProcess("b@a", 0)).andReturn(0);
     fontRenderer.render("name-0", 100, 100, 'b', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
     expect(fontRenderer.preProcess("b@a", 1)).andReturn(1);
@@ -118,7 +118,7 @@ public class JGLFontImplTest {
   @Test
   public void testRenderStringColorEncoded() throws Exception {
     initializeFontRenderer();
-    fontRenderer.beforeRender();
+    fontRenderer.beforeRender(null);
     expect(fontRenderer.preProcess("b\\#f00#a", 0)).andReturn(0);
     fontRenderer.render("name-0", 100, 100, 'b', 1.f, 1.f, 1.f, 0.9f, 0.8f, 0.7f);
     expect(fontRenderer.preProcess("b\\#f00#a", 1)).andReturn(7);

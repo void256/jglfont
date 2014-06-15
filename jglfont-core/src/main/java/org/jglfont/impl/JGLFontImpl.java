@@ -14,6 +14,9 @@ import org.jglfont.impl.format.JGLFontGlyphInfo;
 public class JGLFontImpl implements JGLFont {
   private final JGLAbstractFontData fontData;
 
+  // custom render state to be forwarded to the FontRenderer
+  private Object customRenderState;
+
   /**
    * Create a JGLFont using the given JGLAbstractFontData.
    * @param fontData font data
@@ -53,7 +56,7 @@ public class JGLFontImpl implements JGLFont {
 
     int xPos = x;
     int yPos = y;
-    fontData.getRenderer().beforeRender();
+    fontData.getRenderer().beforeRender(customRenderState);
     for (int offset = 0; offset < text.length(); /* no increment */) {
       offset = fontData.getRenderer().preProcess(text, offset);
       if (offset >= text.length()) {
@@ -117,6 +120,11 @@ public class JGLFontImpl implements JGLFont {
   @Override
   public int getHeight() {
     return fontData.getLineHeight();
+  }
+
+  @Override
+  public void setCustomRenderState(final Object o) {
+    customRenderState = o;
   }
 
   private int getNextCodepoint(final String text, final int currentIndex) {

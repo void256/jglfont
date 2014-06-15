@@ -62,4 +62,11 @@ public interface JGLFont {
    * @return
    */
   int getHeight();
+
+  /**
+   * Allows to transfer custom data to the FontRenderer. The instance you provide here will be set in the
+   * beforeRender() method of the FontRenderer.
+   * @param customRenderState this instance will be forwarded to the fontRenderer.beforeRender() method
+   */
+  void setCustomRenderState(Object customRenderState);
 }
