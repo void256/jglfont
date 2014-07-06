@@ -3,7 +3,7 @@
   <parent>
     <artifactId>jglfont-main</artifactId>
     <groupId>org.jglfont</groupId>
-    <version>1.4-SNAPSHOT</version>
+    <version>1.4</version>
     <relativePath>..</relativePath>
   </parent>
   <artifactId>jglfont-core</artifactId>
